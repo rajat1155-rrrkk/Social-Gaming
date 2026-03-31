@@ -29,7 +29,8 @@ import { ActivityItem, GameItem, Profile, Rating, TabKey } from "./src/types";
 
 export default function App() {
   const { width } = useWindowDimensions();
-  const [signedIn, setSignedIn] = useState(false);
+  const [bootState] = useState(() => loadPrototypeState());
+  const [signedIn, setSignedIn] = useState(bootState?.signedIn ?? false);
   const [activeTab, setActiveTab] = useState<TabKey>("feed");
   const [search, setSearch] = useState("");
   const [rating, setRating] = useState<Rating>(4);
@@ -38,31 +39,22 @@ export default function App() {
     "finished",
   );
   const [selectedGame, setSelectedGame] = useState<GameItem>(gameSeed[0]);
-  const [activity, setActivity] = useState<ActivityItem[]>(activitySeed);
-  const [profile, setProfile] = useState<Profile>(defaultProfile);
-  const [followedHandles, setFollowedHandles] = useState<string[]>(defaultFollowedHandles);
-  const [hydrated, setHydrated] = useState(false);
+  const [activity, setActivity] = useState<ActivityItem[]>(
+    (bootState?.activity as ActivityItem[]) ?? activitySeed,
+  );
+  const [profile, setProfile] = useState<Profile>(bootState?.profile ?? defaultProfile);
+  const [followedHandles, setFollowedHandles] = useState<string[]>(
+    bootState?.followedHandles ?? defaultFollowedHandles,
+  );
 
   useEffect(() => {
-    const persisted = loadPrototypeState();
-    if (persisted) {
-      setSignedIn(persisted.signedIn);
-      setProfile(persisted.profile);
-      setActivity(persisted.activity as ActivityItem[]);
-      setFollowedHandles(persisted.followedHandles);
-    }
-    setHydrated(true);
-  }, []);
-
-  useEffect(() => {
-    if (!hydrated) return;
     savePrototypeState({
       signedIn,
       profile,
       activity,
       followedHandles,
     });
-  }, [signedIn, profile, activity, followedHandles, hydrated]);
+  }, [signedIn, profile, activity, followedHandles]);
 
   const filteredGames = useMemo(() => {
     if (!search.trim()) return gameSeed;
@@ -131,10 +123,6 @@ export default function App() {
     setActiveTab("feed");
     setSearch("");
   };
-
-  if (!hydrated) {
-    return <SafeAreaView style={styles.safeArea} />;
-  }
 
   if (!signedIn) {
     return (
