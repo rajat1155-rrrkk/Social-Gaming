@@ -24,6 +24,21 @@ npm install
 npm run web
 ```
 
+## Vercel deployment
+
+This repo is configured for static deployment on Vercel.
+
+```bash
+npm install
+npm run build
+```
+
+Vercel should use:
+
+- Install Command: `npm install`
+- Build Command: `npm run build`
+- Output Directory: `dist`
+
 ## Notes
 
 This repo is intentionally focused on the front-end MVP demo. The current interactions use local state so the product can be reviewed quickly before wiring up real backend services.
