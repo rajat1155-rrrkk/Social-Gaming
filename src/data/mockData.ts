@@ -213,10 +213,10 @@ export const statCards = [
 ];
 
 export const defaultProfile = {
-  name: "Pixel Beaver",
-  handle: "@pixelbeaver",
-  bio: "I log games for color, combat feel, and moments that make me text friends instantly.",
-  vibe: "Joyful chaos, comfort grinds, and dramatic finales",
+  name: "Cosmic Otter",
+  handle: "@cosmicotter",
+  bio: "I log games for color bursts, combat snap, and scenes weird enough to text friends about.",
+  vibe: "Chaotic delight, sparkle quests, and dramatic finales",
 };
 
 export const defaultFollowedHandles = ["@miaxplay", "@tpixel"];

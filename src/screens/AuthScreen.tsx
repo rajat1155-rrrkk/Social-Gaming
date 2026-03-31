@@ -40,7 +40,7 @@ export function AuthScreen({
             <TextInput
               value={name}
               onChangeText={onNameChange}
-              placeholder="Pixel Beaver"
+              placeholder="Cosmic Otter"
               placeholderTextColor={theme.muted}
               style={styles.input}
             />
@@ -50,7 +50,7 @@ export function AuthScreen({
             <TextInput
               value={handle}
               onChangeText={(value) => onHandleChange(value.startsWith("@") ? value : `@${value}`)}
-              placeholder="@pixelbeaver"
+              placeholder="@cosmicotter"
               placeholderTextColor={theme.muted}
               autoCapitalize="none"
               style={styles.input}

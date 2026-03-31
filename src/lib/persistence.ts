@@ -1,4 +1,4 @@
-const STORAGE_KEY = "logg-prototype-state-v1";
+const STORAGE_KEY = "logg-prototype-state-v2";
 
 export type PersistedPrototypeState = {
   signedIn: boolean;
@@ -29,7 +29,28 @@ export function loadPrototypeState(): PersistedPrototypeState | null {
 
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as PersistedPrototypeState) : null;
+    if (!raw) {
+      return null;
+    }
+
+    const parsed = JSON.parse(raw) as PersistedPrototypeState;
+    const normalizedName = parsed.profile.name.trim().toLowerCase();
+    const normalizedHandle = parsed.profile.handle.trim().toLowerCase();
+
+    if (normalizedName.includes("rajat") || normalizedHandle === "@rajat") {
+      return {
+        ...parsed,
+        profile: {
+          ...parsed.profile,
+          name: "Cosmic Otter",
+          handle: "@cosmicotter",
+          bio: "I log games for color bursts, combat snap, and scenes weird enough to text friends about.",
+          vibe: "Chaotic delight, sparkle quests, and dramatic finales",
+        },
+      };
+    }
+
+    return parsed;
   } catch {
     return null;
   }
