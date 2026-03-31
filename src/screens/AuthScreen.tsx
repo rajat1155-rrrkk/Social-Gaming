@@ -21,115 +21,104 @@ export function AuthScreen({
   const canEnter = name.trim().length > 1 && handle.trim().length > 1;
 
   return (
-    <LinearGradient colors={["#5a3df5", "#2d74ff", "#34c9bf"]} style={styles.shell}>
-      <View style={styles.orbOne} />
-      <View style={styles.orbTwo} />
-      <View style={styles.card}>
-        <View style={styles.brandBadge}>
-          <MaterialCommunityIcons name="controller-classic" size={26} color={theme.panel} />
-        </View>
-        <Text style={styles.eyebrow}>logg</Text>
-        <Text style={styles.title}>Track the games worth remembering.</Text>
-        <Text style={styles.copy}>
-          A social game journal for ratings, discovery, and the people whose taste you trust.
-        </Text>
-
-        <View style={styles.formWrap}>
-          <View style={styles.inputWrap}>
-            <Text style={styles.inputLabel}>Display name</Text>
-            <TextInput
-              value={name}
-              onChangeText={onNameChange}
-              placeholder="Cosmic Otter"
-              placeholderTextColor={theme.muted}
-              style={styles.input}
-            />
-          </View>
-          <View style={styles.inputWrap}>
-            <Text style={styles.inputLabel}>Handle</Text>
-            <TextInput
-              value={handle}
-              onChangeText={(value) => onHandleChange(value.startsWith("@") ? value : `@${value}`)}
-              placeholder="@cosmicotter"
-              placeholderTextColor={theme.muted}
-              autoCapitalize="none"
-              style={styles.input}
-            />
+    <View style={styles.shell}>
+      <View style={styles.topRow}>
+        <View style={styles.brandRow}>
+          <LinearGradient colors={["#5f49ff", "#2d74ff"]} style={styles.brandBadge}>
+            <MaterialCommunityIcons name="controller-classic" size={24} color={theme.panel} />
+          </LinearGradient>
+          <View style={styles.titleWrap}>
+            <Text style={styles.eyebrow}>logg</Text>
+            <Text style={styles.title}>Start your log</Text>
           </View>
         </View>
-
-        <View style={styles.previewPanel}>
-          <Text style={styles.previewTitle}>Working Prototype Includes</Text>
-          {onboardingPoints.map((item) => (
-            <View key={item} style={styles.previewRow}>
-              <View style={styles.previewDot} />
-              <Text style={styles.previewItem}>{item}</Text>
-            </View>
-          ))}
+        <View style={styles.statusPill}>
+          <Text style={styles.statusText}>Browser-ready</Text>
         </View>
-
-        <View style={styles.metricsRow}>
-          <View style={styles.metricCard}>
-            <Text style={styles.metricValue}>4</Text>
-            <Text style={styles.metricLabel}>Core flows</Text>
-          </View>
-          <View style={styles.metricCard}>
-            <Text style={styles.metricValue}>100%</Text>
-            <Text style={styles.metricLabel}>Browser friendly</Text>
-          </View>
-        </View>
-
-        <Pressable
-          style={[styles.primaryButton, !canEnter && styles.primaryButtonDisabled]}
-          onPress={onEnter}
-          disabled={!canEnter}
-        >
-          <Text style={styles.primaryButtonText}>Enter Demo</Text>
-        </Pressable>
       </View>
-    </LinearGradient>
+
+      <Text style={styles.copy}>
+        Set a playful profile and drop straight into the same bright product experience.
+      </Text>
+
+      <View style={styles.formWrap}>
+        <View style={styles.inputWrap}>
+          <Text style={styles.inputLabel}>Display name</Text>
+          <TextInput
+            value={name}
+            onChangeText={onNameChange}
+            placeholder="Cosmic Otter"
+            placeholderTextColor={theme.muted}
+            style={styles.input}
+          />
+        </View>
+        <View style={styles.inputWrap}>
+          <Text style={styles.inputLabel}>Handle</Text>
+          <TextInput
+            value={handle}
+            onChangeText={(value) => onHandleChange(value.startsWith("@") ? value : `@${value}`)}
+            placeholder="@cosmicotter"
+            placeholderTextColor={theme.muted}
+            autoCapitalize="none"
+            style={styles.input}
+          />
+        </View>
+      </View>
+
+      <View style={styles.previewPanel}>
+        <Text style={styles.previewTitle}>Inside the app</Text>
+        {onboardingPoints.map((item) => (
+          <View key={item} style={styles.previewRow}>
+            <View style={styles.previewDot} />
+            <Text style={styles.previewItem}>{item}</Text>
+          </View>
+        ))}
+      </View>
+
+      <View style={styles.metricsRow}>
+        <View style={styles.metricCard}>
+          <Text style={styles.metricValue}>4</Text>
+          <Text style={styles.metricLabel}>Core flows</Text>
+        </View>
+        <View style={styles.metricCard}>
+          <Text style={styles.metricValue}>Live</Text>
+          <Text style={styles.metricLabel}>Local state</Text>
+        </View>
+      </View>
+
+      <Pressable
+        style={[styles.primaryButton, !canEnter && styles.primaryButtonDisabled]}
+        onPress={onEnter}
+        disabled={!canEnter}
+      >
+        <Text style={styles.primaryButtonText}>Enter logg</Text>
+      </Pressable>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   shell: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 24,
-    overflow: "hidden",
-  },
-  orbOne: {
-    position: "absolute",
-    width: 280,
-    height: 280,
-    borderRadius: 999,
-    backgroundColor: "rgba(255, 214, 92, 0.32)",
-    top: -40,
-    right: -60,
-  },
-  orbTwo: {
-    position: "absolute",
-    width: 220,
-    height: 220,
-    borderRadius: 999,
-    backgroundColor: "rgba(255, 132, 196, 0.28)",
-    bottom: 20,
-    left: -50,
-  },
-  card: {
     width: "100%",
     maxWidth: layout.maxContentWidth,
-    backgroundColor: "rgba(255, 248, 238, 0.98)",
-    borderRadius: 30,
-    padding: 24,
+    backgroundColor: theme.panel,
+    borderRadius: 28,
+    padding: 20,
     borderWidth: 1,
     borderColor: theme.stroke,
     gap: 16,
-    shadowColor: theme.brandDeep,
-    shadowOpacity: 0.18,
-    shadowRadius: 22,
-    shadowOffset: { width: 0, height: 12 },
+  },
+  topRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: 10,
+  },
+  brandRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    flex: 1,
   },
   brandBadge: {
     width: 52,
@@ -137,24 +126,38 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: theme.brandDeep,
+  },
+  titleWrap: {
+    gap: 2,
+    flex: 1,
   },
   eyebrow: {
     fontSize: 12,
-    letterSpacing: 2,
+    letterSpacing: 1.8,
     textTransform: "uppercase",
-    color: theme.redClay,
-    fontWeight: "700",
+    color: theme.brandDeep,
+    fontWeight: "800",
   },
   title: {
-    fontSize: 34,
-    lineHeight: 38,
+    fontSize: 28,
+    lineHeight: 32,
     color: theme.ink,
+    fontWeight: "800",
+  },
+  statusPill: {
+    backgroundColor: theme.accentSoft,
+    borderRadius: 999,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+  },
+  statusText: {
+    color: "#0f6e68",
+    fontSize: 12,
     fontWeight: "800",
   },
   copy: {
     fontSize: 15,
-    lineHeight: 24,
+    lineHeight: 22,
     color: theme.muted,
   },
   formWrap: {
@@ -181,16 +184,16 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   previewPanel: {
-    backgroundColor: "#fff0de",
+    backgroundColor: "#fff4e6",
     borderRadius: 22,
     borderWidth: 1,
     borderColor: theme.stroke,
-    padding: 18,
+    padding: 16,
     gap: 10,
   },
   previewTitle: {
     color: theme.ink,
-    fontWeight: "700",
+    fontWeight: "800",
     fontSize: 15,
   },
   previewRow: {
@@ -217,7 +220,7 @@ const styles = StyleSheet.create({
   },
   metricCard: {
     flex: 1,
-    backgroundColor: "#fff7ed",
+    backgroundColor: "#fffbf5",
     borderRadius: 20,
     padding: 16,
     borderWidth: 1,

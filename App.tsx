@@ -145,13 +145,29 @@ export default function App() {
     return (
       <SafeAreaView style={styles.safeArea}>
         <StatusBar style="dark" />
-        <AuthScreen
-          name={profile.name}
-          handle={profile.handle}
-          onNameChange={(value) => setProfile((current) => ({ ...current, name: value }))}
-          onHandleChange={(value) => setProfile((current) => ({ ...current, handle: value }))}
-          onEnter={() => setSignedIn(true)}
-        />
+        <View style={styles.appShell}>
+          <View
+            style={[
+              styles.backdropOrb,
+              styles.backdropOrbTop,
+              width > 768 && styles.backdropOrbWide,
+            ]}
+          />
+          <View style={[styles.backdropOrb, styles.backdropOrbBottom]} />
+          <ScrollView contentContainerStyle={styles.pageContent}>
+            <View style={styles.deviceFrame}>
+              <View style={styles.content}>
+                <AuthScreen
+                  name={profile.name}
+                  handle={profile.handle}
+                  onNameChange={(value) => setProfile((current) => ({ ...current, name: value }))}
+                  onHandleChange={(value) => setProfile((current) => ({ ...current, handle: value }))}
+                  onEnter={() => setSignedIn(true)}
+                />
+              </View>
+            </View>
+          </ScrollView>
+        </View>
       </SafeAreaView>
     );
   }
