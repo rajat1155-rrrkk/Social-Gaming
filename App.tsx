@@ -251,11 +251,11 @@ const styles = StyleSheet.create({
   deviceFrame: {
     width: "100%",
     maxWidth: layout.maxContentWidth + 24,
-    backgroundColor: "rgba(246, 239, 227, 0.08)",
+    backgroundColor: "rgba(255, 255, 255, 0.08)",
     borderRadius: 36,
     padding: 12,
     borderWidth: 1,
-    borderColor: "rgba(234, 217, 196, 0.12)",
+    borderColor: "rgba(103, 183, 255, 0.18)",
   },
   content: {
     padding: 18,
@@ -267,7 +267,7 @@ const styles = StyleSheet.create({
   backdropOrb: {
     position: "absolute",
     borderRadius: 999,
-    backgroundColor: "rgba(186, 138, 52, 0.12)",
+    backgroundColor: "rgba(255, 140, 66, 0.22)",
   },
   backdropOrbTop: {
     width: 260,
@@ -283,7 +283,7 @@ const styles = StyleSheet.create({
     height: 220,
     bottom: 40,
     left: -80,
-    backgroundColor: "rgba(140, 159, 143, 0.12)",
+    backgroundColor: "rgba(50, 211, 199, 0.18)",
   },
   heroCard: {
     backgroundColor: theme.panel,
@@ -292,6 +292,10 @@ const styles = StyleSheet.create({
     borderColor: theme.stroke,
     padding: 18,
     gap: 14,
+    shadowColor: theme.brandDeep,
+    shadowOpacity: 0.12,
+    shadowRadius: 16,
+    shadowOffset: { width: 0, height: 8 },
   },
   heroTopRow: {
     flexDirection: "row",
@@ -318,13 +322,13 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
   },
   heroStatusPill: {
-    backgroundColor: theme.brandSoft,
+    backgroundColor: theme.accentSoft,
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 999,
   },
   heroStatusText: {
-    color: theme.brandDeep,
+    color: "#0f6e68",
     fontWeight: "700",
     fontSize: 12,
   },

@@ -21,7 +21,7 @@ export function AuthScreen({
   const canEnter = name.trim().length > 1 && handle.trim().length > 1;
 
   return (
-    <LinearGradient colors={["#161821", "#261b18", "#12141b"]} style={styles.shell}>
+    <LinearGradient colors={["#20163a", "#0f223f", "#11131f"]} style={styles.shell}>
       <View style={styles.orbOne} />
       <View style={styles.orbTwo} />
       <View style={styles.card}>
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     width: 280,
     height: 280,
     borderRadius: 999,
-    backgroundColor: "rgba(186, 138, 52, 0.16)",
+    backgroundColor: "rgba(255, 191, 47, 0.28)",
     top: -40,
     right: -60,
   },
@@ -113,21 +113,21 @@ const styles = StyleSheet.create({
     width: 220,
     height: 220,
     borderRadius: 999,
-    backgroundColor: "rgba(140, 159, 143, 0.14)",
+    backgroundColor: "rgba(50, 211, 199, 0.24)",
     bottom: 20,
     left: -50,
   },
   card: {
     width: "100%",
     maxWidth: layout.maxContentWidth,
-    backgroundColor: "rgba(246, 239, 227, 0.96)",
+    backgroundColor: "rgba(255, 245, 231, 0.98)",
     borderRadius: 30,
     padding: 24,
     borderWidth: 1,
     borderColor: theme.stroke,
     gap: 16,
-    shadowColor: "#000",
-    shadowOpacity: 0.08,
+    shadowColor: theme.brandDeep,
+    shadowOpacity: 0.18,
     shadowRadius: 22,
     shadowOffset: { width: 0, height: 12 },
   },
@@ -137,13 +137,13 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: theme.brand,
+    backgroundColor: theme.brandDeep,
   },
   eyebrow: {
     fontSize: 12,
     letterSpacing: 2,
     textTransform: "uppercase",
-    color: theme.brand,
+    color: theme.redClay,
     fontWeight: "700",
   },
   title: {
@@ -175,13 +175,13 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderWidth: 1,
     borderColor: theme.stroke,
-    backgroundColor: "#f9f3ea",
+    backgroundColor: "#fffaf3",
     paddingHorizontal: 14,
     color: theme.ink,
     fontSize: 15,
   },
   previewPanel: {
-    backgroundColor: theme.panel,
+    backgroundColor: "#fff0de",
     borderRadius: 22,
     borderWidth: 1,
     borderColor: theme.stroke,
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 999,
-    backgroundColor: theme.brand,
+    backgroundColor: theme.redClay,
     marginTop: 6,
   },
   previewItem: {
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
   },
   metricCard: {
     flex: 1,
-    backgroundColor: theme.panelAlt,
+    backgroundColor: "#fff7ed",
     borderRadius: 20,
     padding: 16,
     borderWidth: 1,
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   primaryButton: {
-    backgroundColor: theme.ink,
+    backgroundColor: theme.brandDeep,
     minHeight: 54,
     borderRadius: 18,
     alignItems: "center",
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   primaryButtonText: {
-    color: theme.panel,
+    color: "#fff8f0",
     fontSize: 15,
     fontWeight: "700",
   },

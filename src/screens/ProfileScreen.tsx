@@ -50,6 +50,18 @@ export function ProfileScreen({
           </View>
         </View>
 
+        <View style={styles.vibeRow}>
+          <View style={[styles.vibeChip, styles.vibeChipOrange]}>
+            <Text style={styles.vibeChipText}>Boss fight energy</Text>
+          </View>
+          <View style={[styles.vibeChip, styles.vibeChipMint]}>
+            <Text style={styles.vibeChipText}>Comfort grind</Text>
+          </View>
+          <View style={[styles.vibeChip, styles.vibeChipPurple]}>
+            <Text style={styles.vibeChipText}>Story mood</Text>
+          </View>
+        </View>
+
         <View style={styles.profileHighlight}>
           <Text style={styles.highlightEyebrow}>Taste signal</Text>
           <Text style={styles.highlightText}>{profile.bio}</Text>
@@ -104,7 +116,7 @@ export function ProfileScreen({
 
 const styles = StyleSheet.create({
   profileCard: {
-    backgroundColor: theme.panel,
+    backgroundColor: "#fff5e7",
     borderRadius: 26,
     borderWidth: 1,
     borderColor: theme.stroke,
@@ -121,6 +133,8 @@ const styles = StyleSheet.create({
     height: 60,
     borderRadius: 20,
     backgroundColor: theme.brandDeep,
+    borderWidth: 3,
+    borderColor: theme.gold,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -143,8 +157,32 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 20,
   },
+  vibeRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+  },
+  vibeChip: {
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 999,
+  },
+  vibeChipOrange: {
+    backgroundColor: "#ffe1cd",
+  },
+  vibeChipMint: {
+    backgroundColor: "#d6fff8",
+  },
+  vibeChipPurple: {
+    backgroundColor: "#ead9ff",
+  },
+  vibeChipText: {
+    color: theme.ink,
+    fontSize: 12,
+    fontWeight: "700",
+  },
   profileHighlight: {
-    backgroundColor: theme.panelAlt,
+    backgroundColor: "#fff0de",
     borderRadius: 20,
     padding: 16,
     gap: 8,
@@ -168,21 +206,20 @@ const styles = StyleSheet.create({
   },
   statCard: {
     flex: 1,
-    backgroundColor: theme.bg,
+    backgroundColor: "#2a1d4b",
     borderRadius: 20,
-    borderWidth: 1,
-    borderColor: theme.stroke,
+    borderWidth: 0,
     padding: 16,
     alignItems: "center",
     gap: 6,
   },
   statValue: {
-    color: theme.ink,
+    color: "#fff6de",
     fontSize: 22,
     fontWeight: "800",
   },
   statLabel: {
-    color: theme.muted,
+    color: "#d7c8ff",
     fontSize: 12,
     textTransform: "uppercase",
     letterSpacing: 1,
@@ -197,7 +234,7 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
   },
   favoriteRow: {
-    backgroundColor: theme.bg,
+    backgroundColor: "#fffaf3",
     borderRadius: 18,
     borderWidth: 1,
     borderColor: theme.stroke,
@@ -229,7 +266,7 @@ const styles = StyleSheet.create({
     borderColor: theme.stroke,
     paddingVertical: 14,
     alignItems: "center",
-    backgroundColor: "#f8f1e8",
+    backgroundColor: "#fff0de",
   },
   signOutText: {
     color: theme.brandDeep,
