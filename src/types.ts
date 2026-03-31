@@ -11,6 +11,9 @@ export type ActivityItem = {
   note: string;
   time: string;
   status?: "playing" | "finished" | "replaying" | "wishlist";
+  reactionCount?: number;
+  commentCount?: number;
+  sticker?: string;
 };
 
 export type GameItem = {

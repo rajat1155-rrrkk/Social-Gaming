@@ -102,6 +102,9 @@ export default function App() {
         note: note.trim() || "No review added yet, but the prototype log is live and persisted.",
         time: "now",
         status: logStatus,
+        reactionCount: 1,
+        commentCount: 0,
+        sticker: "Fresh drop",
       },
       ...current,
     ]);

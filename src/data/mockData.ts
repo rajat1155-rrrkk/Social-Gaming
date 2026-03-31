@@ -38,6 +38,9 @@ export const activitySeed: ActivityItem[] = [
     note: "Every chapter feels hand-painted. Combat is absurdly stylish.",
     time: "12m ago",
     status: "finished",
+    reactionCount: 34,
+    commentCount: 7,
+    sticker: "Painter mode",
   },
   {
     id: "a2",
@@ -49,6 +52,9 @@ export const activitySeed: ActivityItem[] = [
     note: "Still the cleanest loop design in the genre.",
     time: "48m ago",
     status: "replaying",
+    reactionCount: 19,
+    commentCount: 4,
+    sticker: "Again?!",
   },
   {
     id: "a3",
@@ -60,6 +66,9 @@ export const activitySeed: ActivityItem[] = [
     note: "Massive, emotional, and way more playful than I expected.",
     time: "2h ago",
     status: "finished",
+    reactionCount: 41,
+    commentCount: 11,
+    sticker: "Roll credits",
   },
   {
     id: "a4",
@@ -71,6 +80,9 @@ export const activitySeed: ActivityItem[] = [
     note: "The menu design alone deserves its own fan club.",
     time: "3h ago",
     status: "playing",
+    reactionCount: 15,
+    commentCount: 3,
+    sticker: "UI goblin",
   },
   {
     id: "a5",
@@ -82,6 +94,9 @@ export const activitySeed: ActivityItem[] = [
     note: "Purely for the weird moodboard energy and landscape direction.",
     time: "5h ago",
     status: "wishlist",
+    reactionCount: 22,
+    commentCount: 6,
+    sticker: "Need this",
   },
   {
     id: "a6",
@@ -93,6 +108,9 @@ export const activitySeed: ActivityItem[] = [
     note: "Night City still feels like the benchmark for density and atmosphere.",
     time: "7h ago",
     status: "finished",
+    reactionCount: 28,
+    commentCount: 8,
+    sticker: "Neon brain",
   },
 ];
 
@@ -205,10 +223,10 @@ export const statCards = [
 ];
 
 export const defaultProfile = {
-  name: "Rajat Mehra",
-  handle: "@rajat",
-  bio: "I log games for atmosphere, combat feel, and emotional aftertaste.",
-  vibe: "Prestige RPGs, stylish action, and emotionally sharp indies",
+  name: "Pixel Beaver",
+  handle: "@pixelbeaver",
+  bio: "I chase games with delicious art direction, weird side quests, and boss fights worth texting friends about.",
+  vibe: "Joyful chaos, cozy grinds, and dramatic finales",
 };
 
 export const defaultFollowedHandles = ["@miaxplay", "@tpixel"];
