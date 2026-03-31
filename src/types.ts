@@ -11,9 +11,6 @@ export type ActivityItem = {
   note: string;
   time: string;
   status?: "playing" | "finished" | "replaying" | "wishlist";
-  reactionCount?: number;
-  commentCount?: number;
-  sticker?: string;
 };
 
 export type GameItem = {
@@ -26,7 +23,6 @@ export type GameItem = {
   accent: [string, string];
   coverUri: string;
   blurb: string;
-  symbolText?: string;
 };
 
 export type UserItem = {

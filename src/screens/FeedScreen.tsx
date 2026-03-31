@@ -1,5 +1,4 @@
 import { Ionicons } from "@expo/vector-icons";
-import { LinearGradient } from "expo-linear-gradient";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { AnimatedEntrance } from "../components/AnimatedEntrance";
@@ -21,26 +20,19 @@ export function FeedScreen({
     <>
       <SectionTitle title="Friend Activity" subtitle="Recent logs from people you follow" />
 
-      <LinearGradient colors={["#ffe2c2", "#ffd5ed", "#d8fff8"]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.storyCard}>
+      <View style={styles.storyCard}>
         <Text style={styles.storyEyebrow}>Today on logg</Text>
         <Text style={styles.storyTitle}>Your circle is leaning narrative-heavy this week.</Text>
         <Text style={styles.storyCopy}>
           Following {followingCount} players. New posts appear here immediately when you publish a
           log in this browser prototype.
         </Text>
-      </LinearGradient>
+      </View>
 
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.momentsRow}>
         {gameSeed.slice(0, 6).map((game) => (
           <View key={game.id} style={styles.momentCard}>
-            <View
-              style={[
-                styles.momentRing,
-                index % 3 === 0 && styles.momentRingOrange,
-                index % 3 === 1 && styles.momentRingMint,
-                index % 3 === 2 && styles.momentRingPurple,
-              ]}
-            >
+            <View style={styles.momentRing}>
               <CoverArt uri={game.coverUri} width={68} height={68} radius={34} />
             </View>
             <Text numberOfLines={1} style={styles.momentLabel}>
@@ -55,25 +47,14 @@ export function FeedScreen({
           .filter((game) => featuredGameIds.includes(game.id))
           .map((game) => (
             <View key={game.id} style={styles.featuredCard}>
-              <CoverArt
-                uri={game.coverUri}
-                title={game.title}
-                colors={game.accent}
-                symbolText={game.symbolText}
-                width={124}
-                height={164}
-                radius={22}
-              />
-              <View style={styles.genreChip}>
-                <Text style={styles.genreChipText}>{game.genre}</Text>
-              </View>
+              <CoverArt uri={game.coverUri} width={124} height={164} radius={22} />
               <Text style={styles.featuredTitle}>{game.title}</Text>
-              <Text style={styles.featuredMeta}>{game.blurb}</Text>
+              <Text style={styles.featuredMeta}>{game.genre}</Text>
             </View>
           ))}
       </ScrollView>
 
-      <LinearGradient colors={["#8a3ffc", "#ff5d73", "#ff8c42"]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.clipsCard}>
+      <View style={styles.clipsCard}>
         <View style={styles.clipsHeader}>
           <Text style={styles.clipsTitle}>Quick Clips</Text>
           <Text style={styles.clipsMeta}>Motion-inspired previews without autoplay audio</Text>
@@ -92,22 +73,14 @@ export function FeedScreen({
             </View>
           ))}
         </ScrollView>
-      </LinearGradient>
+      </View>
 
       {activity.map((item, index) => (
         <AnimatedEntrance key={item.id} delay={120 + index * 70}>
           <View style={styles.feedCard}>
-            <View style={styles.feedStickerRow}>
-              <View style={styles.feedSticker}>
-                <Text style={styles.feedStickerText}>{item.sticker ?? "Hot take"}</Text>
-              </View>
-            </View>
             <View style={styles.feedCardTop}>
               <CoverArt
                 uri={gameSeed.find((game) => game.title === item.game)?.coverUri ?? gameSeed[0].coverUri}
-                title={item.game}
-                colors={gameSeed.find((game) => game.title === item.game)?.accent ?? gameSeed[0].accent}
-                symbolText={gameSeed.find((game) => game.title === item.game)?.symbolText}
                 width={78}
                 height={104}
                 radius={18}
@@ -135,20 +108,6 @@ export function FeedScreen({
                 <View style={styles.feedFooter}>
                   <RatingStars rating={item.rating} />
                   <Text style={styles.feedNote}>{item.note}</Text>
-                  <View style={styles.socialBar}>
-                    <View style={styles.socialPill}>
-                      <Text style={styles.socialIcon}>❤</Text>
-                      <Text style={styles.socialText}>{item.reactionCount ?? 0}</Text>
-                    </View>
-                    <View style={styles.socialPill}>
-                      <Text style={styles.socialIcon}>✦</Text>
-                      <Text style={styles.socialText}>{item.commentCount ?? 0}</Text>
-                    </View>
-                    <View style={styles.socialPill}>
-                      <Text style={styles.socialIcon}>↗</Text>
-                      <Text style={styles.socialText}>Share</Text>
-                    </View>
-                  </View>
                 </View>
               </View>
             </View>
@@ -161,8 +120,11 @@ export function FeedScreen({
 
 const styles = StyleSheet.create({
   storyCard: {
+    backgroundColor: "#e0d6c8",
     borderRadius: 24,
     padding: 18,
+    borderWidth: 1,
+    borderColor: "#cfbda7",
     gap: 8,
   },
   storyEyebrow: {
@@ -179,7 +141,7 @@ const styles = StyleSheet.create({
     fontWeight: "800",
   },
   storyCopy: {
-    color: "#6b5148",
+    color: theme.muted,
     fontSize: 14,
     lineHeight: 21,
   },
@@ -203,60 +165,31 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#b79f80",
   },
-  momentRingOrange: {
-    backgroundColor: "#ffd6b8",
-    borderColor: "#ff8c42",
-  },
-  momentRingMint: {
-    backgroundColor: "#d7fff9",
-    borderColor: "#32d3c7",
-  },
-  momentRingPurple: {
-    backgroundColor: "#ead9ff",
-    borderColor: "#8a3ffc",
-  },
   momentLabel: {
-    color: "#fff1dc",
+    color: theme.panelMuted,
     fontSize: 11,
     maxWidth: 76,
   },
   featuredCard: {
     width: 132,
     gap: 10,
-    backgroundColor: "#241f38",
-    borderRadius: 22,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: "#53477d",
-  },
-  genreChip: {
-    alignSelf: "flex-start",
-    backgroundColor: "#ffe14d",
-    borderRadius: 999,
-    paddingHorizontal: 8,
-    paddingVertical: 5,
-  },
-  genreChipText: {
-    color: "#4d3500",
-    fontSize: 10,
-    fontWeight: "800",
-    textTransform: "uppercase",
-    letterSpacing: 1,
   },
   featuredTitle: {
-    color: "#fff6de",
+    color: theme.panel,
     fontSize: 14,
     fontWeight: "700",
   },
   featuredMeta: {
-    color: "#dacaff",
+    color: "#c7b8a2",
     fontSize: 12,
-    lineHeight: 18,
   },
   clipsCard: {
+    backgroundColor: "#1d2029",
     borderRadius: 24,
     padding: 16,
     gap: 14,
+    borderWidth: 1,
+    borderColor: "#343849",
   },
   clipsHeader: {
     gap: 4,
@@ -267,7 +200,7 @@ const styles = StyleSheet.create({
     fontWeight: "800",
   },
   clipsMeta: {
-    color: "rgba(255,240,230,0.86)",
+    color: "#a4aab8",
     fontSize: 13,
   },
   clipsRow: {
@@ -296,37 +229,17 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   clipTitle: {
-    color: "#fff9ef",
+    color: theme.panel,
     fontSize: 13,
     fontWeight: "700",
   },
   feedCard: {
-    backgroundColor: "#fff7ec",
+    backgroundColor: theme.panel,
     borderRadius: 24,
     borderColor: theme.stroke,
     borderWidth: 1,
     padding: 16,
     gap: 14,
-    shadowColor: theme.redClay,
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
-    shadowOffset: { width: 0, height: 8 },
-  },
-  feedStickerRow: {
-    flexDirection: "row",
-  },
-  feedSticker: {
-    backgroundColor: "#c9fff8",
-    borderRadius: 999,
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-  },
-  feedStickerText: {
-    color: "#046e66",
-    fontSize: 11,
-    fontWeight: "800",
-    textTransform: "uppercase",
-    letterSpacing: 1,
   },
   feedCardTop: {
     flexDirection: "row",
@@ -378,28 +291,5 @@ const styles = StyleSheet.create({
     color: theme.ink,
     fontSize: 14,
     lineHeight: 21,
-  },
-  socialBar: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 8,
-    marginTop: 2,
-  },
-  socialPill: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-    backgroundColor: "#ffe8d0",
-    borderRadius: 999,
-    paddingHorizontal: 10,
-    paddingVertical: 7,
-  },
-  socialIcon: {
-    fontSize: 12,
-  },
-  socialText: {
-    color: theme.brandDeep,
-    fontSize: 12,
-    fontWeight: "700",
   },
 });

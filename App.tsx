@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -27,50 +27,9 @@ import { SearchScreen } from "./src/screens/SearchScreen";
 import { layout, theme } from "./src/theme";
 import { ActivityItem, GameItem, Profile, Rating, TabKey } from "./src/types";
 
-type AppErrorBoundaryState = {
-  hasError: boolean;
-  message?: string;
-};
-
-class AppErrorBoundary extends React.Component<{ children: React.ReactNode }, AppErrorBoundaryState> {
-  state: AppErrorBoundaryState = { hasError: false };
-
-  static getDerivedStateFromError(error: Error): AppErrorBoundaryState {
-    return {
-      hasError: true,
-      message: error.message,
-    };
-  }
-
-  componentDidCatch(error: Error) {
-    console.error("logg runtime error", error);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <SafeAreaView style={styles.safeArea}>
-          <View style={styles.errorShell}>
-            <Text style={styles.errorEyebrow}>logg fallback</Text>
-            <Text style={styles.errorTitle}>The app hit a render error.</Text>
-            <Text style={styles.errorCopy}>
-              Reload the page once. If it still fails, this screen confirms the deployment is alive and
-              the crash is happening in client rendering rather than the site being missing.
-            </Text>
-            <Text style={styles.errorMessage}>{this.state.message ?? "Unknown render error"}</Text>
-          </View>
-        </SafeAreaView>
-      );
-    }
-
-    return this.props.children;
-  }
-}
-
-function AppInner() {
+export default function App() {
   const { width } = useWindowDimensions();
-  const [bootState] = useState(() => loadPrototypeState());
-  const [signedIn, setSignedIn] = useState(bootState?.signedIn ?? false);
+  const [signedIn, setSignedIn] = useState(false);
   const [activeTab, setActiveTab] = useState<TabKey>("feed");
   const [search, setSearch] = useState("");
   const [rating, setRating] = useState<Rating>(4);
@@ -79,22 +38,31 @@ function AppInner() {
     "finished",
   );
   const [selectedGame, setSelectedGame] = useState<GameItem>(gameSeed[0]);
-  const [activity, setActivity] = useState<ActivityItem[]>(
-    (bootState?.activity as ActivityItem[]) ?? activitySeed,
-  );
-  const [profile, setProfile] = useState<Profile>(bootState?.profile ?? defaultProfile);
-  const [followedHandles, setFollowedHandles] = useState<string[]>(
-    bootState?.followedHandles ?? defaultFollowedHandles,
-  );
+  const [activity, setActivity] = useState<ActivityItem[]>(activitySeed);
+  const [profile, setProfile] = useState<Profile>(defaultProfile);
+  const [followedHandles, setFollowedHandles] = useState<string[]>(defaultFollowedHandles);
+  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
+    const persisted = loadPrototypeState();
+    if (persisted) {
+      setSignedIn(persisted.signedIn);
+      setProfile(persisted.profile);
+      setActivity(persisted.activity as ActivityItem[]);
+      setFollowedHandles(persisted.followedHandles);
+    }
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
     savePrototypeState({
       signedIn,
       profile,
       activity,
       followedHandles,
     });
-  }, [signedIn, profile, activity, followedHandles]);
+  }, [signedIn, profile, activity, followedHandles, hydrated]);
 
   const filteredGames = useMemo(() => {
     if (!search.trim()) return gameSeed;
@@ -134,9 +102,6 @@ function AppInner() {
         note: note.trim() || "No review added yet, but the prototype log is live and persisted.",
         time: "now",
         status: logStatus,
-        reactionCount: 1,
-        commentCount: 0,
-        sticker: "Fresh drop",
       },
       ...current,
     ]);
@@ -163,6 +128,10 @@ function AppInner() {
     setActiveTab("feed");
     setSearch("");
   };
+
+  if (!hydrated) {
+    return <SafeAreaView style={styles.safeArea} />;
+  }
 
   if (!signedIn) {
     return (
@@ -261,14 +230,6 @@ function AppInner() {
         <BottomTabBar activeTab={activeTab} onChange={setActiveTab} />
       </View>
     </SafeAreaView>
-  );
-}
-
-export default function App() {
-  return (
-    <AppErrorBoundary>
-      <AppInner />
-    </AppErrorBoundary>
   );
 }
 
@@ -381,37 +342,5 @@ const styles = StyleSheet.create({
     color: theme.muted,
     fontSize: 15,
     lineHeight: 23,
-  },
-  errorShell: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 24,
-    backgroundColor: theme.bg,
-  },
-  errorEyebrow: {
-    color: theme.redClay,
-    fontSize: 12,
-    fontWeight: "800",
-    letterSpacing: 1.4,
-    textTransform: "uppercase",
-    marginBottom: 10,
-  },
-  errorTitle: {
-    color: theme.panel,
-    fontSize: 28,
-    lineHeight: 34,
-    fontWeight: "800",
-    marginBottom: 10,
-  },
-  errorCopy: {
-    color: "#efe6d9",
-    fontSize: 15,
-    lineHeight: 23,
-    marginBottom: 14,
-  },
-  errorMessage: {
-    color: "#ffe1cd",
-    fontSize: 14,
-    lineHeight: 21,
   },
 });

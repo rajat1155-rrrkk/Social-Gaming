@@ -38,9 +38,6 @@ export const activitySeed: ActivityItem[] = [
     note: "Every chapter feels hand-painted. Combat is absurdly stylish.",
     time: "12m ago",
     status: "finished",
-    reactionCount: 34,
-    commentCount: 7,
-    sticker: "Painter mode",
   },
   {
     id: "a2",
@@ -52,9 +49,6 @@ export const activitySeed: ActivityItem[] = [
     note: "Still the cleanest loop design in the genre.",
     time: "48m ago",
     status: "replaying",
-    reactionCount: 19,
-    commentCount: 4,
-    sticker: "Again?!",
   },
   {
     id: "a3",
@@ -66,9 +60,6 @@ export const activitySeed: ActivityItem[] = [
     note: "Massive, emotional, and way more playful than I expected.",
     time: "2h ago",
     status: "finished",
-    reactionCount: 41,
-    commentCount: 11,
-    sticker: "Roll credits",
   },
   {
     id: "a4",
@@ -80,9 +71,6 @@ export const activitySeed: ActivityItem[] = [
     note: "The menu design alone deserves its own fan club.",
     time: "3h ago",
     status: "playing",
-    reactionCount: 15,
-    commentCount: 3,
-    sticker: "UI goblin",
   },
   {
     id: "a5",
@@ -94,9 +82,6 @@ export const activitySeed: ActivityItem[] = [
     note: "Purely for the weird moodboard energy and landscape direction.",
     time: "5h ago",
     status: "wishlist",
-    reactionCount: 22,
-    commentCount: 6,
-    sticker: "Need this",
   },
   {
     id: "a6",
@@ -108,9 +93,6 @@ export const activitySeed: ActivityItem[] = [
     note: "Night City still feels like the benchmark for density and atmosphere.",
     time: "7h ago",
     status: "finished",
-    reactionCount: 28,
-    commentCount: 8,
-    sticker: "Neon brain",
   },
 ];
 
@@ -125,7 +107,6 @@ export const gameSeed: GameItem[] = [
     accent: ["#102520", "#245c4b"],
     coverUri: createCoverArt("Expedition 33", "#0f1c1a", "#254d43", "#e7c57d", "PAINTED RPG"),
     blurb: "A lush prestige RPG with painterly spectacle and elegant turn-based combat.",
-    symbolText: "★",
   },
   {
     id: "g2",
@@ -137,7 +118,6 @@ export const gameSeed: GameItem[] = [
     accent: ["#281410", "#7f3b29"],
     coverUri: createCoverArt("Hades II", "#25120f", "#6b2e1f", "#f4c27f", "MYTHIC ROGUELIKE"),
     blurb: "Stylish, fast, and still one of the sharpest-feeling action loops around.",
-    symbolText: "✦",
   },
   {
     id: "g3",
@@ -149,7 +129,6 @@ export const gameSeed: GameItem[] = [
     accent: ["#161616", "#6d612c"],
     coverUri: createCoverArt("Elden Ring", "#141414", "#625724", "#d0c17d", "OPEN-WORLD EPIC"),
     blurb: "The modern benchmark for mythic scale, mystery, and hard-earned discovery.",
-    symbolText: "☼",
   },
   {
     id: "g4",
@@ -161,7 +140,6 @@ export const gameSeed: GameItem[] = [
     accent: ["#18192e", "#4d64b1"],
     coverUri: createCoverArt("Animal Well", "#191a30", "#465aa3", "#c5d2ff", "PUZZLE MAZE"),
     blurb: "Dense, secretive, and designed like a puzzle box you carry around in your head.",
-    symbolText: "◉",
   },
   {
     id: "g5",
@@ -173,7 +151,6 @@ export const gameSeed: GameItem[] = [
     accent: ["#24191c", "#82484f"],
     coverUri: createCoverArt("Metaphor", "#21161a", "#7a434c", "#f3c98b", "FANTASY PRESTIGE"),
     blurb: "Big ideas, bolder UI, and exactly the kind of theatrical worldbuilding logg should spotlight.",
-    symbolText: "♛",
   },
   {
     id: "g6",
@@ -185,7 +162,6 @@ export const gameSeed: GameItem[] = [
     accent: ["#151924", "#c08120"],
     coverUri: createCoverArt("Cyberpunk", "#11151f", "#8f6d1d", "#7bd4f6", "CITY ODYSSEY"),
     blurb: "A maximalist city fantasy with some of the strongest environmental mood in games.",
-    symbolText: "⚡",
   },
   {
     id: "g7",
@@ -197,7 +173,6 @@ export const gameSeed: GameItem[] = [
     accent: ["#1c2028", "#55687f"],
     coverUri: createCoverArt("Death Stranding 2", "#191d24", "#546579", "#d7b7a0", "CINEMATIC JOURNEY"),
     blurb: "High-concept, atmospheric, and exactly the kind of conversation-starter a social log should amplify.",
-    symbolText: "∞",
   },
   {
     id: "g8",
@@ -209,7 +184,6 @@ export const gameSeed: GameItem[] = [
     accent: ["#1e1626", "#70354a"],
     coverUri: createCoverArt("Balatro", "#1b1422", "#6a3348", "#f0d38a", "COMPELLED LOOP"),
     blurb: "A tiny game with dangerous gravity. Perfect for quick logs and replay chatter.",
-    symbolText: "♠",
   },
 ];
 
@@ -231,10 +205,10 @@ export const statCards = [
 ];
 
 export const defaultProfile = {
-  name: "Pixel Beaver",
-  handle: "@pixelbeaver",
-  bio: "I chase games with delicious art direction, weird side quests, and boss fights worth texting friends about.",
-  vibe: "Joyful chaos, cozy grinds, and dramatic finales",
+  name: "Rajat Mehra",
+  handle: "@rajat",
+  bio: "I log games for atmosphere, combat feel, and emotional aftertaste.",
+  vibe: "Prestige RPGs, stylish action, and emotionally sharp indies",
 };
 
 export const defaultFollowedHandles = ["@miaxplay", "@tpixel"];
