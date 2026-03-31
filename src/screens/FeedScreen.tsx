@@ -5,7 +5,13 @@ import { SectionTitle } from "../components/SectionTitle";
 import { ActivityItem } from "../types";
 import { theme } from "../theme";
 
-export function FeedScreen({ activity }: { activity: ActivityItem[] }) {
+export function FeedScreen({
+  activity,
+  followingCount,
+}: {
+  activity: ActivityItem[];
+  followingCount: number;
+}) {
   return (
     <>
       <SectionTitle title="Friend Activity" subtitle="Recent logs from people you follow" />
@@ -14,7 +20,8 @@ export function FeedScreen({ activity }: { activity: ActivityItem[] }) {
         <Text style={styles.storyEyebrow}>Today on logg</Text>
         <Text style={styles.storyTitle}>Your circle is leaning narrative-heavy this week.</Text>
         <Text style={styles.storyCopy}>
-          RPGs and stylish action games are driving most of the engagement in this mock feed.
+          Following {followingCount} players. New posts appear here immediately when you publish a
+          log in this browser prototype.
         </Text>
       </View>
 
@@ -35,7 +42,7 @@ export function FeedScreen({ activity }: { activity: ActivityItem[] }) {
                 {item.user} <Text style={styles.feedMuted}>{item.action}</Text> {item.game}
               </Text>
               <Text style={styles.feedMeta}>
-                {item.handle} • {item.time}
+                {item.handle} • {item.status ?? "logged"} • {item.time}
               </Text>
             </View>
           </View>
@@ -51,15 +58,15 @@ export function FeedScreen({ activity }: { activity: ActivityItem[] }) {
 
 const styles = StyleSheet.create({
   storyCard: {
-    backgroundColor: "#e4eee9",
+    backgroundColor: "#e0d6c8",
     borderRadius: 24,
     padding: 18,
     borderWidth: 1,
-    borderColor: "#c7ddd4",
+    borderColor: "#cfbda7",
     gap: 8,
   },
   storyEyebrow: {
-    color: theme.brand,
+    color: theme.brandDeep,
     fontWeight: "700",
     fontSize: 12,
     textTransform: "uppercase",
@@ -92,7 +99,7 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: 16,
-    backgroundColor: theme.brand,
+    backgroundColor: theme.brandDeep,
     alignItems: "center",
     justifyContent: "center",
   },

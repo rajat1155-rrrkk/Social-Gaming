@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -10,14 +10,21 @@ import {
 } from "react-native";
 
 import { BottomTabBar } from "./src/components/BottomTabBar";
-import { activitySeed, gameSeed, userSeed } from "./src/data/mockData";
+import {
+  activitySeed,
+  defaultFollowedHandles,
+  defaultProfile,
+  gameSeed,
+  userSeed,
+} from "./src/data/mockData";
+import { loadPrototypeState, savePrototypeState } from "./src/lib/persistence";
 import { AuthScreen } from "./src/screens/AuthScreen";
 import { FeedScreen } from "./src/screens/FeedScreen";
 import { LogScreen } from "./src/screens/LogScreen";
 import { ProfileScreen } from "./src/screens/ProfileScreen";
 import { SearchScreen } from "./src/screens/SearchScreen";
 import { layout, theme } from "./src/theme";
-import { ActivityItem, GameItem, Rating, TabKey } from "./src/types";
+import { ActivityItem, GameItem, Profile, Rating, TabKey } from "./src/types";
 
 export default function App() {
   const { width } = useWindowDimensions();
@@ -25,8 +32,36 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<TabKey>("feed");
   const [search, setSearch] = useState("");
   const [rating, setRating] = useState<Rating>(4);
+  const [note, setNote] = useState("");
+  const [logStatus, setLogStatus] = useState<"playing" | "finished" | "replaying" | "wishlist">(
+    "finished",
+  );
   const [selectedGame, setSelectedGame] = useState<GameItem>(gameSeed[0]);
   const [activity, setActivity] = useState<ActivityItem[]>(activitySeed);
+  const [profile, setProfile] = useState<Profile>(defaultProfile);
+  const [followedHandles, setFollowedHandles] = useState<string[]>(defaultFollowedHandles);
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    const persisted = loadPrototypeState();
+    if (persisted) {
+      setSignedIn(persisted.signedIn);
+      setProfile(persisted.profile);
+      setActivity(persisted.activity as ActivityItem[]);
+      setFollowedHandles(persisted.followedHandles);
+    }
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    savePrototypeState({
+      signedIn,
+      profile,
+      activity,
+      followedHandles,
+    });
+  }, [signedIn, profile, activity, followedHandles, hydrated]);
 
   const filteredGames = useMemo(() => {
     if (!search.trim()) return gameSeed;
@@ -49,28 +84,65 @@ export default function App() {
     );
   }, [search]);
 
+  const ownActivity = useMemo(
+    () => activity.filter((entry) => entry.handle === profile.handle),
+    [activity, profile.handle],
+  );
+
   const addLog = () => {
     setActivity((current) => [
       {
         id: `${Date.now()}`,
-        user: "Rajat Mehra",
-        handle: "@rajat",
-        action: "logged",
+        user: profile.name,
+        handle: profile.handle,
+        action: logStatus === "finished" ? "finished" : logStatus === "wishlist" ? "saved" : "logged",
         game: selectedGame.title,
         rating,
-        note: "Mocked from the demo composer. Ready for Supabase later.",
+        note: note.trim() || "No review added yet, but the prototype log is live and persisted.",
         time: "now",
+        status: logStatus,
       },
       ...current,
     ]);
+    setNote("");
+    setLogStatus("finished");
     setActiveTab("feed");
   };
+
+  const toggleFollow = (handle: string) => {
+    setFollowedHandles((current) =>
+      current.includes(handle) ? current.filter((entry) => entry !== handle) : [...current, handle],
+    );
+  };
+
+  const resetSession = () => {
+    setSignedIn(false);
+    setProfile(defaultProfile);
+    setActivity(activitySeed);
+    setFollowedHandles(defaultFollowedHandles);
+    setRating(4);
+    setNote("");
+    setLogStatus("finished");
+    setSelectedGame(gameSeed[0]);
+    setActiveTab("feed");
+    setSearch("");
+  };
+
+  if (!hydrated) {
+    return <SafeAreaView style={styles.safeArea} />;
+  }
 
   if (!signedIn) {
     return (
       <SafeAreaView style={styles.safeArea}>
         <StatusBar style="dark" />
-        <AuthScreen onEnter={() => setSignedIn(true)} />
+        <AuthScreen
+          name={profile.name}
+          handle={profile.handle}
+          onNameChange={(value) => setProfile((current) => ({ ...current, name: value }))}
+          onHandleChange={(value) => setProfile((current) => ({ ...current, handle: value }))}
+          onEnter={() => setSignedIn(true)}
+        />
       </SafeAreaView>
     );
   }
@@ -94,20 +166,22 @@ export default function App() {
                 <View style={styles.heroTopRow}>
                   <View style={styles.heroBadge}>
                     <View style={styles.heroBadgeDot} />
-                    <Text style={styles.heroBadgeText}>Social Gaming MVP</Text>
+                    <Text style={styles.heroBadgeText}>Working Prototype</Text>
                   </View>
                   <View style={styles.heroStatusPill}>
-                    <Text style={styles.heroStatusText}>Browser-only demo</Text>
+                    <Text style={styles.heroStatusText}>Vercel-safe local state</Text>
                   </View>
                 </View>
-                <Text style={styles.heroTitle}>A polished mobile concept for logging and discovering games.</Text>
+                <Text style={styles.heroTitle}>A collector-style social app for people with game taste.</Text>
                 <Text style={styles.heroCopy}>
-                  Built as an Expo web demo for fast review on Vercel, with mocked social data now
-                  and a clean path to Supabase plus IGDB when we wire the real MVP.
+                  The UI now behaves like a real prototype: profile entry, follow state, notes, and
+                  logs persist in-browser so the product can actually be used and revisited.
                 </Text>
               </View>
 
-              {activeTab === "feed" && <FeedScreen activity={activity} />}
+              {activeTab === "feed" && (
+                <FeedScreen activity={activity} followingCount={followedHandles.length} />
+              )}
 
               {activeTab === "search" && (
                 <SearchScreen
@@ -119,6 +193,8 @@ export default function App() {
                     setSelectedGame(game);
                     setActiveTab("log");
                   }}
+                  followedHandles={followedHandles}
+                  onToggleFollow={toggleFollow}
                 />
               )}
 
@@ -126,12 +202,24 @@ export default function App() {
                 <LogScreen
                   selectedGame={selectedGame}
                   rating={rating}
+                  note={note}
+                  status={logStatus}
                   onRatingChange={setRating}
+                  onNoteChange={setNote}
+                  onStatusChange={setLogStatus}
                   onPublish={addLog}
                 />
               )}
 
-              {activeTab === "profile" && <ProfileScreen favorites={gameSeed.slice(0, 3)} />}
+              {activeTab === "profile" && (
+                <ProfileScreen
+                  profile={profile}
+                  favorites={gameSeed.slice(0, 3)}
+                  recentLogs={ownActivity}
+                  followingCount={followedHandles.length}
+                  onSignOut={resetSession}
+                />
+              )}
             </ScrollView>
           </View>
         </ScrollView>
@@ -160,23 +248,23 @@ const styles = StyleSheet.create({
   deviceFrame: {
     width: "100%",
     maxWidth: layout.maxContentWidth + 24,
-    backgroundColor: "rgba(251, 247, 241, 0.45)",
+    backgroundColor: "rgba(246, 239, 227, 0.08)",
     borderRadius: 36,
     padding: 12,
     borderWidth: 1,
-    borderColor: "rgba(216, 206, 191, 0.7)",
+    borderColor: "rgba(234, 217, 196, 0.12)",
   },
   content: {
     padding: 18,
     paddingBottom: 24,
     gap: 16,
-    backgroundColor: "rgba(243, 237, 229, 0.82)",
+    backgroundColor: theme.bgElevated,
     borderRadius: 28,
   },
   backdropOrb: {
     position: "absolute",
     borderRadius: 999,
-    backgroundColor: "rgba(31, 92, 75, 0.08)",
+    backgroundColor: "rgba(186, 138, 52, 0.12)",
   },
   backdropOrbTop: {
     width: 260,
@@ -192,7 +280,7 @@ const styles = StyleSheet.create({
     height: 220,
     bottom: 40,
     left: -80,
-    backgroundColor: "rgba(199, 146, 47, 0.09)",
+    backgroundColor: "rgba(140, 159, 143, 0.12)",
   },
   heroCard: {
     backgroundColor: theme.panel,
@@ -220,7 +308,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.brand,
   },
   heroBadgeText: {
-    color: theme.brand,
+    color: theme.brandDeep,
     fontSize: 12,
     fontWeight: "800",
     letterSpacing: 1.2,
@@ -233,7 +321,7 @@ const styles = StyleSheet.create({
     borderRadius: 999,
   },
   heroStatusText: {
-    color: theme.brand,
+    color: theme.brandDeep,
     fontWeight: "700",
     fontSize: 12,
   },

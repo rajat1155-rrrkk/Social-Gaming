@@ -1,19 +1,28 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 import { RatingStars } from "../components/RatingStars";
 import { SectionTitle } from "../components/SectionTitle";
-import { GameItem, Rating } from "../types";
+import { logStatuses } from "../data/mockData";
 import { theme } from "../theme";
+import { GameItem, Rating } from "../types";
 
 export function LogScreen({
   selectedGame,
   rating,
+  note,
+  status,
   onRatingChange,
+  onNoteChange,
+  onStatusChange,
   onPublish,
 }: {
   selectedGame: GameItem;
   rating: Rating;
+  note: string;
+  status: "playing" | "finished" | "replaying" | "wishlist";
   onRatingChange: (value: Rating) => void;
+  onNoteChange: (value: string) => void;
+  onStatusChange: (value: "playing" | "finished" | "replaying" | "wishlist") => void;
   onPublish: () => void;
 }) {
   return (
@@ -32,20 +41,41 @@ export function LogScreen({
         <Text style={styles.blockLabel}>Your rating</Text>
         <RatingStars rating={rating} onChange={onRatingChange} size={24} />
 
+        <Text style={styles.blockLabel}>Status</Text>
+        <View style={styles.statusRow}>
+          {logStatuses.map((item) => (
+            <Pressable
+              key={item.key}
+              style={[styles.statusChip, status === item.key && styles.statusChipActive]}
+              onPress={() => onStatusChange(item.key)}
+            >
+              <Text
+                style={[styles.statusChipText, status === item.key && styles.statusChipTextActive]}
+              >
+                {item.label}
+              </Text>
+            </Pressable>
+          ))}
+        </View>
+
         <View style={styles.mockPanel}>
-          <Text style={styles.mockTitle}>Frontend-first stack</Text>
+          <Text style={styles.mockTitle}>Prototype state</Text>
           <Text style={styles.mockCopy}>
-            This composer is intentionally mocked in local state for browser demos. The final shape
-            maps cleanly to Supabase auth, profiles, logs, and an IGDB-backed game table.
+            This log form now persists in-browser, so your posts, follow choices, and profile state
+            survive refreshes while we stay Vercel-safe and backend-free.
           </Text>
         </View>
 
         <View style={styles.noteCard}>
           <Text style={styles.noteTitle}>Quick Review</Text>
-          <Text style={styles.noteText}>
-            Sample note text is intentionally static for the demo. The interaction is the priority
-            here, and this can later map directly to Supabase tables and IGDB references.
-          </Text>
+          <TextInput
+            value={note}
+            onChangeText={onNoteChange}
+            multiline
+            placeholder="What stood out: combat feel, writing, atmosphere, pacing..."
+            placeholderTextColor={theme.muted}
+            style={styles.noteInput}
+          />
         </View>
 
         <Pressable style={styles.primaryButton} onPress={onPublish}>
@@ -93,7 +123,7 @@ const styles = StyleSheet.create({
   },
   mockPanel: {
     marginTop: 18,
-    backgroundColor: "#e4eee9",
+    backgroundColor: theme.accentSoft,
     borderRadius: 22,
     borderWidth: 1,
     borderColor: "#c7ddd4",
@@ -101,7 +131,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   mockTitle: {
-    color: theme.brand,
+    color: theme.brandDeep,
     fontWeight: "800",
     fontSize: 15,
   },
@@ -127,6 +157,39 @@ const styles = StyleSheet.create({
     color: theme.muted,
     fontSize: 14,
     lineHeight: 21,
+  },
+  noteInput: {
+    minHeight: 96,
+    textAlignVertical: "top",
+    color: theme.ink,
+    fontSize: 14,
+    lineHeight: 21,
+  },
+  statusRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+    marginBottom: 2,
+  },
+  statusChip: {
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: theme.stroke,
+    backgroundColor: theme.panelAlt,
+    paddingHorizontal: 12,
+    paddingVertical: 9,
+  },
+  statusChipActive: {
+    backgroundColor: theme.brandDeep,
+    borderColor: theme.brandDeep,
+  },
+  statusChipText: {
+    color: theme.ink,
+    fontSize: 12,
+    fontWeight: "700",
+  },
+  statusChipTextActive: {
+    color: theme.panel,
   },
   primaryButton: {
     backgroundColor: theme.ink,

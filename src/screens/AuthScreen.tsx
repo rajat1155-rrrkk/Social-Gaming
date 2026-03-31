@@ -1,13 +1,27 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 import { onboardingPoints } from "../data/mockData";
 import { layout, theme } from "../theme";
 
-export function AuthScreen({ onEnter }: { onEnter: () => void }) {
+export function AuthScreen({
+  name,
+  handle,
+  onNameChange,
+  onHandleChange,
+  onEnter,
+}: {
+  name: string;
+  handle: string;
+  onNameChange: (value: string) => void;
+  onHandleChange: (value: string) => void;
+  onEnter: () => void;
+}) {
+  const canEnter = name.trim().length > 1 && handle.trim().length > 1;
+
   return (
-    <LinearGradient colors={["#f7f1e8", "#e2ece5"]} style={styles.shell}>
+    <LinearGradient colors={["#161821", "#261b18", "#12141b"]} style={styles.shell}>
       <View style={styles.orbOne} />
       <View style={styles.orbTwo} />
       <View style={styles.card}>
@@ -20,8 +34,32 @@ export function AuthScreen({ onEnter }: { onEnter: () => void }) {
           A social game journal for ratings, discovery, and the people whose taste you trust.
         </Text>
 
+        <View style={styles.formWrap}>
+          <View style={styles.inputWrap}>
+            <Text style={styles.inputLabel}>Display name</Text>
+            <TextInput
+              value={name}
+              onChangeText={onNameChange}
+              placeholder="Rajat Mehra"
+              placeholderTextColor={theme.muted}
+              style={styles.input}
+            />
+          </View>
+          <View style={styles.inputWrap}>
+            <Text style={styles.inputLabel}>Handle</Text>
+            <TextInput
+              value={handle}
+              onChangeText={(value) => onHandleChange(value.startsWith("@") ? value : `@${value}`)}
+              placeholder="@rajat"
+              placeholderTextColor={theme.muted}
+              autoCapitalize="none"
+              style={styles.input}
+            />
+          </View>
+        </View>
+
         <View style={styles.previewPanel}>
-          <Text style={styles.previewTitle}>MVP Demo Includes</Text>
+          <Text style={styles.previewTitle}>Working Prototype Includes</Text>
           {onboardingPoints.map((item) => (
             <View key={item} style={styles.previewRow}>
               <View style={styles.previewDot} />
@@ -41,7 +79,11 @@ export function AuthScreen({ onEnter }: { onEnter: () => void }) {
           </View>
         </View>
 
-        <Pressable style={styles.primaryButton} onPress={onEnter}>
+        <Pressable
+          style={[styles.primaryButton, !canEnter && styles.primaryButtonDisabled]}
+          onPress={onEnter}
+          disabled={!canEnter}
+        >
           <Text style={styles.primaryButtonText}>Enter Demo</Text>
         </Pressable>
       </View>
@@ -59,26 +101,26 @@ const styles = StyleSheet.create({
   },
   orbOne: {
     position: "absolute",
-    width: 220,
-    height: 220,
+    width: 280,
+    height: 280,
     borderRadius: 999,
-    backgroundColor: "rgba(31, 92, 75, 0.10)",
-    top: -20,
-    right: -20,
+    backgroundColor: "rgba(186, 138, 52, 0.16)",
+    top: -40,
+    right: -60,
   },
   orbTwo: {
     position: "absolute",
-    width: 180,
-    height: 180,
+    width: 220,
+    height: 220,
     borderRadius: 999,
-    backgroundColor: "rgba(199, 146, 47, 0.10)",
-    bottom: 40,
-    left: -40,
+    backgroundColor: "rgba(140, 159, 143, 0.14)",
+    bottom: 20,
+    left: -50,
   },
   card: {
     width: "100%",
     maxWidth: layout.maxContentWidth,
-    backgroundColor: "rgba(251, 247, 241, 0.96)",
+    backgroundColor: "rgba(246, 239, 227, 0.96)",
     borderRadius: 30,
     padding: 24,
     borderWidth: 1,
@@ -114,6 +156,29 @@ const styles = StyleSheet.create({
     fontSize: 15,
     lineHeight: 24,
     color: theme.muted,
+  },
+  formWrap: {
+    gap: 12,
+  },
+  inputWrap: {
+    gap: 6,
+  },
+  inputLabel: {
+    color: theme.brandDeep,
+    fontSize: 12,
+    fontWeight: "700",
+    textTransform: "uppercase",
+    letterSpacing: 1.2,
+  },
+  input: {
+    minHeight: 52,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: theme.stroke,
+    backgroundColor: "#f9f3ea",
+    paddingHorizontal: 14,
+    color: theme.ink,
+    fontSize: 15,
   },
   previewPanel: {
     backgroundColor: theme.panel,
@@ -182,5 +247,8 @@ const styles = StyleSheet.create({
     color: theme.panel,
     fontSize: 15,
     fontWeight: "700",
+  },
+  primaryButtonDisabled: {
+    opacity: 0.55,
   },
 });

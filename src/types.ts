@@ -10,6 +10,7 @@ export type ActivityItem = {
   rating: Rating;
   note: string;
   time: string;
+  status?: "playing" | "finished" | "replaying" | "wishlist";
 };
 
 export type GameItem = {
@@ -28,4 +29,11 @@ export type UserItem = {
   handle: string;
   favorite: string;
   avatar: string;
+};
+
+export type Profile = {
+  name: string;
+  handle: string;
+  bio: string;
+  vibe: string;
 };

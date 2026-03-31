@@ -12,12 +12,16 @@ export function SearchScreen({
   filteredGames,
   filteredUsers,
   onSelectGame,
+  followedHandles,
+  onToggleFollow,
 }: {
   search: string;
   onSearchChange: (value: string) => void;
   filteredGames: GameItem[];
   filteredUsers: UserItem[];
   onSelectGame: (game: GameItem) => void;
+  followedHandles: string[];
+  onToggleFollow: (handle: string) => void;
 }) {
   return (
     <>
@@ -64,8 +68,21 @@ export function SearchScreen({
               {user.handle} • Loves {user.favorite}
             </Text>
           </View>
-          <Pressable style={styles.followButton}>
-            <Text style={styles.followButtonText}>Follow</Text>
+          <Pressable
+            style={[
+              styles.followButton,
+              followedHandles.includes(user.handle) && styles.followButtonActive,
+            ]}
+            onPress={() => onToggleFollow(user.handle)}
+          >
+            <Text
+              style={[
+                styles.followButtonText,
+                followedHandles.includes(user.handle) && styles.followButtonTextActive,
+              ]}
+            >
+              {followedHandles.includes(user.handle) ? "Following" : "Follow"}
+            </Text>
           </Pressable>
         </View>
       ))}
@@ -185,5 +202,11 @@ const styles = StyleSheet.create({
     color: theme.brand,
     fontWeight: "700",
     fontSize: 12,
+  },
+  followButtonActive: {
+    backgroundColor: theme.brandDeep,
+  },
+  followButtonTextActive: {
+    color: theme.panel,
   },
 });

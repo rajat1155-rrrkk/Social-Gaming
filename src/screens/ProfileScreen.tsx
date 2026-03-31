@@ -1,12 +1,29 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { RatingStars } from "../components/RatingStars";
 import { SectionTitle } from "../components/SectionTitle";
-import { statCards } from "../data/mockData";
-import { GameItem } from "../types";
+import { ActivityItem, GameItem, Profile } from "../types";
 import { theme } from "../theme";
 
-export function ProfileScreen({ favorites }: { favorites: GameItem[] }) {
+export function ProfileScreen({
+  profile,
+  favorites,
+  recentLogs,
+  followingCount,
+  onSignOut,
+}: {
+  profile: Profile;
+  favorites: GameItem[];
+  recentLogs: ActivityItem[];
+  followingCount: number;
+  onSignOut: () => void;
+}) {
+  const statCards = [
+    { label: "Logged", value: `${recentLogs.length + 125}` },
+    { label: "Following", value: `${followingCount}` },
+    { label: "Avg rating", value: recentLogs.length ? "4.6" : "4.2" },
+  ];
+
   return (
     <>
       <SectionTitle
@@ -16,19 +33,25 @@ export function ProfileScreen({ favorites }: { favorites: GameItem[] }) {
       <View style={styles.profileCard}>
         <View style={styles.profileHeader}>
           <View style={styles.profileAvatar}>
-            <Text style={styles.avatarText}>RM</Text>
+            <Text style={styles.avatarText}>
+              {profile.name
+                .split(" ")
+                .map((part) => part[0])
+                .join("")
+                .slice(0, 2)}
+            </Text>
           </View>
           <View style={styles.profileText}>
-            <Text style={styles.profileName}>Rajat Mehra</Text>
-            <Text style={styles.profileMeta}>@rajat • RPGs, stylish action, narrative indies</Text>
+            <Text style={styles.profileName}>{profile.name}</Text>
+            <Text style={styles.profileMeta}>
+              {profile.handle} • {profile.vibe}
+            </Text>
           </View>
         </View>
 
         <View style={styles.profileHighlight}>
           <Text style={styles.highlightEyebrow}>Taste signal</Text>
-          <Text style={styles.highlightText}>
-            Leans toward atmospheric RPGs, prestige action, and emotionally sharp indies.
-          </Text>
+          <Text style={styles.highlightText}>{profile.bio}</Text>
         </View>
 
         <View style={styles.statsRow}>
@@ -47,6 +70,20 @@ export function ProfileScreen({ favorites }: { favorites: GameItem[] }) {
             <RatingStars rating={5} />
           </View>
         ))}
+
+        <Text style={styles.blockLabel}>Your latest logs</Text>
+        {recentLogs.slice(0, 3).map((entry) => (
+          <View key={entry.id} style={styles.favoriteRow}>
+            <Text style={styles.favoriteTitle}>{entry.game}</Text>
+            <Text style={styles.logMeta}>
+              {entry.status ?? "logged"} • {entry.time}
+            </Text>
+          </View>
+        ))}
+
+        <Pressable style={styles.signOutButton} onPress={onSignOut}>
+          <Text style={styles.signOutText}>Reset prototype session</Text>
+        </Pressable>
       </View>
     </>
   );
@@ -70,7 +107,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 20,
-    backgroundColor: theme.brand,
+    backgroundColor: theme.brandDeep,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -94,13 +131,13 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   profileHighlight: {
-    backgroundColor: "#efe8db",
+    backgroundColor: theme.panelAlt,
     borderRadius: 20,
     padding: 16,
     gap: 8,
   },
   highlightEyebrow: {
-    color: theme.redClay,
+    color: theme.brandDeep,
     fontWeight: "700",
     fontSize: 12,
     textTransform: "uppercase",
@@ -159,5 +196,25 @@ const styles = StyleSheet.create({
     color: theme.ink,
     fontWeight: "700",
     fontSize: 15,
+  },
+  logMeta: {
+    color: theme.muted,
+    fontSize: 12,
+    textTransform: "uppercase",
+    letterSpacing: 1,
+  },
+  signOutButton: {
+    marginTop: 4,
+    borderRadius: 18,
+    borderWidth: 1,
+    borderColor: theme.stroke,
+    paddingVertical: 14,
+    alignItems: "center",
+    backgroundColor: "#f8f1e8",
+  },
+  signOutText: {
+    color: theme.brandDeep,
+    fontSize: 14,
+    fontWeight: "800",
   },
 });

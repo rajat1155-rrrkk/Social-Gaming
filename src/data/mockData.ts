@@ -10,6 +10,7 @@ export const activitySeed: ActivityItem[] = [
     rating: 5,
     note: "Every chapter feels hand-painted. Combat is absurdly stylish.",
     time: "12m ago",
+    status: "finished",
   },
   {
     id: "a2",
@@ -20,6 +21,7 @@ export const activitySeed: ActivityItem[] = [
     rating: 4,
     note: "Still the cleanest loop design in the genre.",
     time: "48m ago",
+    status: "replaying",
   },
   {
     id: "a3",
@@ -30,6 +32,7 @@ export const activitySeed: ActivityItem[] = [
     rating: 5,
     note: "Massive, emotional, and way more playful than I expected.",
     time: "2h ago",
+    status: "finished",
   },
 ];
 
@@ -84,6 +87,22 @@ export const statCards = [
   { label: "This Month", value: "09" },
   { label: "Friends", value: "142" },
 ];
+
+export const defaultProfile = {
+  name: "Rajat Mehra",
+  handle: "@rajat",
+  bio: "I log games for atmosphere, combat feel, and emotional aftertaste.",
+  vibe: "Prestige RPGs, stylish action, and emotionally sharp indies",
+};
+
+export const defaultFollowedHandles = ["@miaxplay", "@tpixel"];
+
+export const logStatuses = [
+  { key: "playing", label: "Playing now" },
+  { key: "finished", label: "Finished" },
+  { key: "replaying", label: "Replay" },
+  { key: "wishlist", label: "Wishlist" },
+] as const;
 
 export const onboardingPoints = [
   "Taste-first profiles built around what you finish and rate",
