@@ -21,7 +21,11 @@ export function BottomTabBar({
   return (
     <View style={styles.tabBar}>
       {tabs.map((tab) => (
-        <Pressable key={tab.key} style={styles.tabItem} onPress={() => onChange(tab.key)}>
+        <Pressable
+          key={tab.key}
+          style={[styles.tabItem, activeTab === tab.key && styles.tabItemActive]}
+          onPress={() => onChange(tab.key)}
+        >
           <Ionicons
             name={tab.icon}
             size={20}
@@ -42,7 +46,7 @@ const styles = StyleSheet.create({
     left: 16,
     right: 16,
     bottom: 16,
-    backgroundColor: "rgba(255,245,231,0.96)",
+    backgroundColor: "rgba(255,248,238,0.97)",
     borderRadius: 28,
     borderWidth: 1,
     borderColor: theme.stroke,
@@ -58,6 +62,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 6,
     minWidth: 58,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 18,
+  },
+  tabItemActive: {
+    backgroundColor: "#ffe7cf",
   },
   tabLabel: {
     color: theme.muted,

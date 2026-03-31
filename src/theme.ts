@@ -1,6 +1,6 @@
 export const theme = {
-  bg: "#11131f",
-  bgElevated: "#181b2b",
+  bg: "#233250",
+  bgElevated: "#2d3b63",
   panel: "#fff5e7",
   panelAlt: "#ffe0c2",
   panelMuted: "#ffd9b3",
@@ -17,7 +17,7 @@ export const theme = {
   lime: "#c8ff4d",
   sky: "#67b7ff",
   grape: "#b78cff",
-  shadow: "rgba(5, 6, 10, 0.28)",
+  shadow: "rgba(19, 28, 52, 0.22)",
 };
 
 export const layout = {

@@ -130,7 +130,16 @@ export default function App() {
   };
 
   if (!hydrated) {
-    return <SafeAreaView style={styles.safeArea} />;
+    return (
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.loadingShell}>
+          <View style={styles.loadingCard}>
+            <Text style={styles.loadingEyebrow}>logg</Text>
+            <Text style={styles.loadingTitle}>Loading your bright little game journal.</Text>
+          </View>
+        </View>
+      </SafeAreaView>
+    );
   }
 
   if (!signedIn) {
@@ -251,11 +260,11 @@ const styles = StyleSheet.create({
   deviceFrame: {
     width: "100%",
     maxWidth: layout.maxContentWidth + 24,
-    backgroundColor: "rgba(255, 255, 255, 0.08)",
+    backgroundColor: "rgba(255, 255, 255, 0.14)",
     borderRadius: 36,
     padding: 12,
     borderWidth: 1,
-    borderColor: "rgba(103, 183, 255, 0.18)",
+    borderColor: "rgba(166, 223, 255, 0.34)",
   },
   content: {
     padding: 18,
@@ -267,7 +276,7 @@ const styles = StyleSheet.create({
   backdropOrb: {
     position: "absolute",
     borderRadius: 999,
-    backgroundColor: "rgba(255, 140, 66, 0.22)",
+    backgroundColor: "rgba(255, 164, 92, 0.34)",
   },
   backdropOrbTop: {
     width: 260,
@@ -283,7 +292,7 @@ const styles = StyleSheet.create({
     height: 220,
     bottom: 40,
     left: -80,
-    backgroundColor: "rgba(50, 211, 199, 0.18)",
+    backgroundColor: "rgba(50, 211, 199, 0.28)",
   },
   heroCard: {
     backgroundColor: theme.panel,
@@ -342,5 +351,34 @@ const styles = StyleSheet.create({
     color: theme.muted,
     fontSize: 15,
     lineHeight: 23,
+  },
+  loadingShell: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 24,
+  },
+  loadingCard: {
+    width: "100%",
+    maxWidth: 420,
+    backgroundColor: "rgba(255, 245, 231, 0.94)",
+    borderRadius: 28,
+    padding: 22,
+    borderWidth: 1,
+    borderColor: theme.stroke,
+    gap: 10,
+  },
+  loadingEyebrow: {
+    color: theme.brandDeep,
+    fontSize: 12,
+    fontWeight: "800",
+    letterSpacing: 1.6,
+    textTransform: "uppercase",
+  },
+  loadingTitle: {
+    color: theme.ink,
+    fontSize: 24,
+    lineHeight: 30,
+    fontWeight: "800",
   },
 });

@@ -21,7 +21,7 @@ export function AuthScreen({
   const canEnter = name.trim().length > 1 && handle.trim().length > 1;
 
   return (
-    <LinearGradient colors={["#20163a", "#0f223f", "#11131f"]} style={styles.shell}>
+    <LinearGradient colors={["#5a3df5", "#2d74ff", "#34c9bf"]} style={styles.shell}>
       <View style={styles.orbOne} />
       <View style={styles.orbTwo} />
       <View style={styles.card}>
@@ -40,7 +40,7 @@ export function AuthScreen({
             <TextInput
               value={name}
               onChangeText={onNameChange}
-              placeholder="Rajat Mehra"
+              placeholder="Pixel Beaver"
               placeholderTextColor={theme.muted}
               style={styles.input}
             />
@@ -50,7 +50,7 @@ export function AuthScreen({
             <TextInput
               value={handle}
               onChangeText={(value) => onHandleChange(value.startsWith("@") ? value : `@${value}`)}
-              placeholder="@rajat"
+              placeholder="@pixelbeaver"
               placeholderTextColor={theme.muted}
               autoCapitalize="none"
               style={styles.input}
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     width: 280,
     height: 280,
     borderRadius: 999,
-    backgroundColor: "rgba(255, 191, 47, 0.28)",
+    backgroundColor: "rgba(255, 214, 92, 0.32)",
     top: -40,
     right: -60,
   },
@@ -113,14 +113,14 @@ const styles = StyleSheet.create({
     width: 220,
     height: 220,
     borderRadius: 999,
-    backgroundColor: "rgba(50, 211, 199, 0.24)",
+    backgroundColor: "rgba(255, 132, 196, 0.28)",
     bottom: 20,
     left: -50,
   },
   card: {
     width: "100%",
     maxWidth: layout.maxContentWidth,
-    backgroundColor: "rgba(255, 245, 231, 0.98)",
+    backgroundColor: "rgba(255, 248, 238, 0.98)",
     borderRadius: 30,
     padding: 24,
     borderWidth: 1,

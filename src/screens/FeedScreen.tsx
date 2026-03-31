@@ -192,13 +192,18 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   momentLabel: {
-    color: theme.panelMuted,
+    color: "#fff4df",
     fontSize: 11,
     maxWidth: 76,
   },
   featuredCard: {
     width: 132,
     gap: 10,
+    backgroundColor: "rgba(255, 245, 231, 0.08)",
+    borderRadius: 24,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "rgba(255, 199, 143, 0.28)",
   },
   featuredTitle: {
     color: theme.panel,
@@ -210,12 +215,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   clipsCard: {
-    backgroundColor: "#1d2029",
+    backgroundColor: "#384c78",
     borderRadius: 24,
     padding: 16,
     gap: 14,
     borderWidth: 1,
-    borderColor: "#343849",
+    borderColor: "#72b7ff",
   },
   clipsHeader: {
     gap: 4,
@@ -226,7 +231,7 @@ const styles = StyleSheet.create({
     fontWeight: "800",
   },
   clipsMeta: {
-    color: "#a4aab8",
+    color: "#dce8ff",
     fontSize: 13,
   },
   clipsRow: {
@@ -244,7 +249,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 5,
-    backgroundColor: "rgba(24,22,16,0.78)",
+    backgroundColor: "rgba(34, 41, 77, 0.78)",
     borderRadius: 999,
     paddingHorizontal: 10,
     paddingVertical: 6,
