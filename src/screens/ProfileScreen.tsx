@@ -1,5 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
+import { CoverArt } from "../components/CoverArt";
 import { RatingStars } from "../components/RatingStars";
 import { SectionTitle } from "../components/SectionTitle";
 import { ActivityItem, GameItem, Profile } from "../types";
@@ -66,18 +67,30 @@ export function ProfileScreen({
         <Text style={styles.blockLabel}>Recent favorites</Text>
         {favorites.map((game) => (
           <View key={game.id} style={styles.favoriteRow}>
-            <Text style={styles.favoriteTitle}>{game.title}</Text>
-            <RatingStars rating={5} />
+            <CoverArt uri={game.coverUri} width={62} height={84} radius={16} />
+            <View style={styles.favoriteTextWrap}>
+              <Text style={styles.favoriteTitle}>{game.title}</Text>
+              <Text style={styles.logMeta}>{game.genre}</Text>
+              <RatingStars rating={5} />
+            </View>
           </View>
         ))}
 
         <Text style={styles.blockLabel}>Your latest logs</Text>
         {recentLogs.slice(0, 3).map((entry) => (
           <View key={entry.id} style={styles.favoriteRow}>
-            <Text style={styles.favoriteTitle}>{entry.game}</Text>
-            <Text style={styles.logMeta}>
-              {entry.status ?? "logged"} • {entry.time}
-            </Text>
+            <CoverArt
+              uri={favorites.find((game) => game.title === entry.game)?.coverUri ?? favorites[0].coverUri}
+              width={62}
+              height={84}
+              radius={16}
+            />
+            <View style={styles.favoriteTextWrap}>
+              <Text style={styles.favoriteTitle}>{entry.game}</Text>
+              <Text style={styles.logMeta}>
+                {entry.status ?? "logged"} • {entry.time}
+              </Text>
+            </View>
           </View>
         ))}
 
@@ -190,7 +203,13 @@ const styles = StyleSheet.create({
     borderColor: theme.stroke,
     padding: 14,
     marginBottom: 10,
-    gap: 8,
+    gap: 12,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  favoriteTextWrap: {
+    flex: 1,
+    gap: 6,
   },
   favoriteTitle: {
     color: theme.ink,

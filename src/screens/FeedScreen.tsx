@@ -1,7 +1,11 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
+import { AnimatedEntrance } from "../components/AnimatedEntrance";
+import { CoverArt } from "../components/CoverArt";
 import { RatingStars } from "../components/RatingStars";
 import { SectionTitle } from "../components/SectionTitle";
+import { featuredGameIds, gameSeed } from "../data/mockData";
 import { ActivityItem } from "../types";
 import { theme } from "../theme";
 
@@ -25,32 +29,90 @@ export function FeedScreen({
         </Text>
       </View>
 
-      {activity.map((item) => (
-        <View key={item.id} style={styles.feedCard}>
-          <View style={styles.feedRow}>
-            <View style={styles.avatar}>
-              <Text style={styles.avatarText}>
-                {item.user
-                  .split(" ")
-                  .map((part) => part[0])
-                  .join("")
-                  .slice(0, 2)}
-              </Text>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.momentsRow}>
+        {gameSeed.slice(0, 6).map((game) => (
+          <View key={game.id} style={styles.momentCard}>
+            <View style={styles.momentRing}>
+              <CoverArt uri={game.coverUri} width={68} height={68} radius={34} />
             </View>
-            <View style={styles.feedHeader}>
-              <Text style={styles.feedTitle}>
-                {item.user} <Text style={styles.feedMuted}>{item.action}</Text> {item.game}
-              </Text>
-              <Text style={styles.feedMeta}>
-                {item.handle} • {item.status ?? "logged"} • {item.time}
-              </Text>
+            <Text numberOfLines={1} style={styles.momentLabel}>
+              {game.title.split(":")[0]}
+            </Text>
+          </View>
+        ))}
+      </ScrollView>
+
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.featuredRow}>
+        {gameSeed
+          .filter((game) => featuredGameIds.includes(game.id))
+          .map((game) => (
+            <View key={game.id} style={styles.featuredCard}>
+              <CoverArt uri={game.coverUri} width={124} height={164} radius={22} />
+              <Text style={styles.featuredTitle}>{game.title}</Text>
+              <Text style={styles.featuredMeta}>{game.genre}</Text>
             </View>
-          </View>
-          <View style={styles.feedFooter}>
-            <RatingStars rating={item.rating} />
-            <Text style={styles.feedNote}>{item.note}</Text>
-          </View>
+          ))}
+      </ScrollView>
+
+      <View style={styles.clipsCard}>
+        <View style={styles.clipsHeader}>
+          <Text style={styles.clipsTitle}>Quick Clips</Text>
+          <Text style={styles.clipsMeta}>Motion-inspired previews without autoplay audio</Text>
         </View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.clipsRow}>
+          {gameSeed.slice(2, 6).map((game) => (
+            <View key={game.id} style={styles.clipTile}>
+              <CoverArt uri={game.coverUri} width={168} height={112} radius={18} />
+              <View style={styles.playBadge}>
+                <Ionicons name="play" size={14} color={theme.panel} />
+                <Text style={styles.playBadgeText}>0:18</Text>
+              </View>
+              <Text numberOfLines={1} style={styles.clipTitle}>
+                {game.title}
+              </Text>
+            </View>
+          ))}
+        </ScrollView>
+      </View>
+
+      {activity.map((item, index) => (
+        <AnimatedEntrance key={item.id} delay={120 + index * 70}>
+          <View style={styles.feedCard}>
+            <View style={styles.feedCardTop}>
+              <CoverArt
+                uri={gameSeed.find((game) => game.title === item.game)?.coverUri ?? gameSeed[0].coverUri}
+                width={78}
+                height={104}
+                radius={18}
+              />
+              <View style={styles.feedMain}>
+                <View style={styles.feedRow}>
+                  <View style={styles.avatar}>
+                    <Text style={styles.avatarText}>
+                      {item.user
+                        .split(" ")
+                        .map((part) => part[0])
+                        .join("")
+                        .slice(0, 2)}
+                    </Text>
+                  </View>
+                  <View style={styles.feedHeader}>
+                    <Text style={styles.feedTitle}>
+                      {item.user} <Text style={styles.feedMuted}>{item.action}</Text> {item.game}
+                    </Text>
+                    <Text style={styles.feedMeta}>
+                      {item.handle} • {item.status ?? "logged"} • {item.time}
+                    </Text>
+                  </View>
+                </View>
+                <View style={styles.feedFooter}>
+                  <RatingStars rating={item.rating} />
+                  <Text style={styles.feedNote}>{item.note}</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </AnimatedEntrance>
       ))}
     </>
   );
@@ -83,6 +145,94 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 21,
   },
+  featuredRow: {
+    gap: 12,
+    paddingRight: 10,
+  },
+  momentsRow: {
+    gap: 12,
+    paddingRight: 10,
+  },
+  momentCard: {
+    width: 78,
+    alignItems: "center",
+    gap: 8,
+  },
+  momentRing: {
+    padding: 3,
+    borderRadius: 999,
+    backgroundColor: theme.panelAlt,
+    borderWidth: 1,
+    borderColor: "#b79f80",
+  },
+  momentLabel: {
+    color: theme.panelMuted,
+    fontSize: 11,
+    maxWidth: 76,
+  },
+  featuredCard: {
+    width: 132,
+    gap: 10,
+  },
+  featuredTitle: {
+    color: theme.panel,
+    fontSize: 14,
+    fontWeight: "700",
+  },
+  featuredMeta: {
+    color: "#c7b8a2",
+    fontSize: 12,
+  },
+  clipsCard: {
+    backgroundColor: "#1d2029",
+    borderRadius: 24,
+    padding: 16,
+    gap: 14,
+    borderWidth: 1,
+    borderColor: "#343849",
+  },
+  clipsHeader: {
+    gap: 4,
+  },
+  clipsTitle: {
+    color: theme.panel,
+    fontSize: 20,
+    fontWeight: "800",
+  },
+  clipsMeta: {
+    color: "#a4aab8",
+    fontSize: 13,
+  },
+  clipsRow: {
+    gap: 12,
+    paddingRight: 10,
+  },
+  clipTile: {
+    width: 168,
+    gap: 8,
+  },
+  playBadge: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5,
+    backgroundColor: "rgba(24,22,16,0.78)",
+    borderRadius: 999,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+  },
+  playBadgeText: {
+    color: theme.panel,
+    fontSize: 11,
+    fontWeight: "700",
+  },
+  clipTitle: {
+    color: theme.panel,
+    fontSize: 13,
+    fontWeight: "700",
+  },
   feedCard: {
     backgroundColor: theme.panel,
     borderRadius: 24,
@@ -90,6 +240,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 16,
     gap: 14,
+  },
+  feedCardTop: {
+    flexDirection: "row",
+    gap: 14,
+  },
+  feedMain: {
+    flex: 1,
+    gap: 10,
   },
   feedRow: {
     flexDirection: "row",
@@ -127,7 +285,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
   feedFooter: {
-    paddingLeft: 56,
     gap: 8,
   },
   feedNote: {

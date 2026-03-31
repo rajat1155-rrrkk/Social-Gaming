@@ -21,6 +21,8 @@ export type GameItem = {
   platform: string;
   friendsLogged: number;
   accent: [string, string];
+  coverUri: string;
+  blurb: string;
 };
 
 export type UserItem = {

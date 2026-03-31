@@ -9,6 +9,7 @@ import {
   View,
 } from "react-native";
 
+import { AnimatedEntrance } from "./src/components/AnimatedEntrance";
 import { BottomTabBar } from "./src/components/BottomTabBar";
 import {
   activitySeed,
@@ -162,22 +163,24 @@ export default function App() {
         <ScrollView contentContainerStyle={styles.pageContent}>
           <View style={styles.deviceFrame}>
             <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-              <View style={styles.heroCard}>
-                <View style={styles.heroTopRow}>
-                  <View style={styles.heroBadge}>
-                    <View style={styles.heroBadgeDot} />
-                    <Text style={styles.heroBadgeText}>Working Prototype</Text>
+              <AnimatedEntrance delay={40} offset={10}>
+                <View style={styles.heroCard}>
+                  <View style={styles.heroTopRow}>
+                    <View style={styles.heroBadge}>
+                      <View style={styles.heroBadgeDot} />
+                      <Text style={styles.heroBadgeText}>Working Prototype</Text>
+                    </View>
+                    <View style={styles.heroStatusPill}>
+                      <Text style={styles.heroStatusText}>Vercel-safe local state</Text>
+                    </View>
                   </View>
-                  <View style={styles.heroStatusPill}>
-                    <Text style={styles.heroStatusText}>Vercel-safe local state</Text>
-                  </View>
+                  <Text style={styles.heroTitle}>A collector-style social app for people with game taste.</Text>
+                  <Text style={styles.heroCopy}>
+                    The UI now behaves like a real prototype: profile entry, follow state, notes, and
+                    logs persist in-browser so the product can actually be used and revisited.
+                  </Text>
                 </View>
-                <Text style={styles.heroTitle}>A collector-style social app for people with game taste.</Text>
-                <Text style={styles.heroCopy}>
-                  The UI now behaves like a real prototype: profile entry, follow state, notes, and
-                  logs persist in-browser so the product can actually be used and revisited.
-                </Text>
-              </View>
+              </AnimatedEntrance>
 
               {activeTab === "feed" && (
                 <FeedScreen activity={activity} followingCount={followedHandles.length} />

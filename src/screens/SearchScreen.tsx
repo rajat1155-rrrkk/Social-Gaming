@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
-import { LinearGradient } from "expo-linear-gradient";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
+import { CoverArt } from "../components/CoverArt";
 import { SectionTitle } from "../components/SectionTitle";
 import { GameItem, UserItem } from "../types";
 import { theme } from "../theme";
@@ -42,18 +42,20 @@ export function SearchScreen({
 
       <Text style={styles.blockLabel}>Games</Text>
       {filteredGames.map((game) => (
-        <LinearGradient key={game.id} colors={game.accent} style={styles.gameCard}>
+        <View key={game.id} style={styles.gameCard}>
+          <CoverArt uri={game.coverUri} width={92} height={122} radius={20} />
           <View style={styles.gameTextWrap}>
             <Text style={styles.gameTitle}>{game.title}</Text>
             <Text style={styles.gameMeta}>
               {game.genre} • {game.year} • {game.platform}
             </Text>
+            <Text style={styles.gameBlurb}>{game.blurb}</Text>
             <Text style={styles.gameFriends}>{game.friendsLogged} friends logged this</Text>
           </View>
           <Pressable style={styles.ghostButton} onPress={() => onSelectGame(game)}>
             <Text style={styles.ghostButtonText}>Log</Text>
           </Pressable>
-        </LinearGradient>
+        </View>
       ))}
 
       <Text style={styles.blockLabel}>Players</Text>
@@ -117,42 +119,49 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
   },
   gameCard: {
-    borderRadius: 24,
-    padding: 18,
+    borderRadius: 26,
+    padding: 14,
     marginBottom: 12,
-    minHeight: 130,
-    justifyContent: "space-between",
+    backgroundColor: theme.panel,
+    borderWidth: 1,
+    borderColor: theme.stroke,
+    flexDirection: "row",
+    gap: 14,
+    alignItems: "center",
   },
   gameTextWrap: {
+    flex: 1,
     gap: 8,
   },
   gameTitle: {
-    color: "#f7f3ee",
-    fontSize: 20,
-    lineHeight: 26,
+    color: theme.ink,
+    fontSize: 18,
+    lineHeight: 24,
     fontWeight: "800",
-    maxWidth: 240,
   },
   gameMeta: {
-    color: "rgba(247,243,238,0.8)",
+    color: theme.muted,
     fontSize: 13,
   },
-  gameFriends: {
-    color: "#f7f3ee",
+  gameBlurb: {
+    color: theme.muted,
     fontSize: 13,
-    fontWeight: "600",
+    lineHeight: 20,
+  },
+  gameFriends: {
+    color: theme.brandDeep,
+    fontSize: 13,
+    fontWeight: "700",
   },
   ghostButton: {
     alignSelf: "flex-start",
     paddingHorizontal: 14,
     paddingVertical: 10,
     borderRadius: 999,
-    backgroundColor: "rgba(251,247,241,0.16)",
-    borderWidth: 1,
-    borderColor: "rgba(251,247,241,0.2)",
+    backgroundColor: theme.brandDeep,
   },
   ghostButtonText: {
-    color: "#f7f3ee",
+    color: theme.panel,
     fontWeight: "700",
   },
   userCard: {
