@@ -9,7 +9,6 @@ import {
   View,
 } from "react-native";
 
-import { AnimatedEntrance } from "./src/components/AnimatedEntrance";
 import { BottomTabBar } from "./src/components/BottomTabBar";
 import {
   activitySeed,
@@ -172,25 +171,6 @@ export default function App() {
         <ScrollView contentContainerStyle={styles.pageContent}>
           <View style={styles.deviceFrame}>
             <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-              <AnimatedEntrance delay={40} offset={10}>
-                <View style={styles.heroCard}>
-                  <View style={styles.heroTopRow}>
-                    <View style={styles.heroBadge}>
-                      <View style={styles.heroBadgeDot} />
-                      <Text style={styles.heroBadgeText}>Working Prototype</Text>
-                    </View>
-                    <View style={styles.heroStatusPill}>
-                      <Text style={styles.heroStatusText}>Vercel-safe local state</Text>
-                    </View>
-                  </View>
-                  <Text style={styles.heroTitle}>A collector-style social app for people with game taste.</Text>
-                  <Text style={styles.heroCopy}>
-                    The UI now behaves like a real prototype: profile entry, follow state, notes, and
-                    logs persist in-browser so the product can actually be used and revisited.
-                  </Text>
-                </View>
-              </AnimatedEntrance>
-
               {activeTab === "feed" && (
                 <FeedScreen activity={activity} followingCount={followedHandles.length} />
               )}
@@ -293,64 +273,6 @@ const styles = StyleSheet.create({
     bottom: 40,
     left: -80,
     backgroundColor: "rgba(50, 211, 199, 0.28)",
-  },
-  heroCard: {
-    backgroundColor: theme.panel,
-    borderRadius: 28,
-    borderWidth: 1,
-    borderColor: theme.stroke,
-    padding: 18,
-    gap: 14,
-    shadowColor: theme.brandDeep,
-    shadowOpacity: 0.12,
-    shadowRadius: 16,
-    shadowOffset: { width: 0, height: 8 },
-  },
-  heroTopRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    gap: 8,
-  },
-  heroBadge: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-  heroBadgeDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 999,
-    backgroundColor: theme.brand,
-  },
-  heroBadgeText: {
-    color: theme.brandDeep,
-    fontSize: 12,
-    fontWeight: "800",
-    letterSpacing: 1.2,
-    textTransform: "uppercase",
-  },
-  heroStatusPill: {
-    backgroundColor: theme.accentSoft,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderRadius: 999,
-  },
-  heroStatusText: {
-    color: "#0f6e68",
-    fontWeight: "700",
-    fontSize: 12,
-  },
-  heroTitle: {
-    color: theme.ink,
-    fontSize: 28,
-    lineHeight: 34,
-    fontWeight: "800",
-  },
-  heroCopy: {
-    color: theme.muted,
-    fontSize: 15,
-    lineHeight: 23,
   },
   loadingShell: {
     flex: 1,
