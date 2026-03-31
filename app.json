@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "name": "logg",
+    "slug": "logg-demo",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}
