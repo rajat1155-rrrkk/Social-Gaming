@@ -83,7 +83,7 @@ export function ProfileScreen({
               uri={game.coverUri}
               title={game.title}
               colors={game.accent}
-              symbolUri={game.symbolUri}
+              symbolText={game.symbolText}
               width={62}
               height={84}
               radius={16}
@@ -103,7 +103,7 @@ export function ProfileScreen({
               uri={favorites.find((game) => game.title === entry.game)?.coverUri ?? favorites[0].coverUri}
               title={entry.game}
               colors={favorites.find((game) => game.title === entry.game)?.accent ?? favorites[0].accent}
-              symbolUri={favorites.find((game) => game.title === entry.game)?.symbolUri}
+              symbolText={favorites.find((game) => game.title === entry.game)?.symbolText}
               width={62}
               height={84}
               radius={16}

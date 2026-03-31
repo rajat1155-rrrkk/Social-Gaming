@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -27,7 +27,47 @@ import { SearchScreen } from "./src/screens/SearchScreen";
 import { layout, theme } from "./src/theme";
 import { ActivityItem, GameItem, Profile, Rating, TabKey } from "./src/types";
 
-export default function App() {
+type AppErrorBoundaryState = {
+  hasError: boolean;
+  message?: string;
+};
+
+class AppErrorBoundary extends React.Component<{ children: React.ReactNode }, AppErrorBoundaryState> {
+  state: AppErrorBoundaryState = { hasError: false };
+
+  static getDerivedStateFromError(error: Error): AppErrorBoundaryState {
+    return {
+      hasError: true,
+      message: error.message,
+    };
+  }
+
+  componentDidCatch(error: Error) {
+    console.error("logg runtime error", error);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <SafeAreaView style={styles.safeArea}>
+          <View style={styles.errorShell}>
+            <Text style={styles.errorEyebrow}>logg fallback</Text>
+            <Text style={styles.errorTitle}>The app hit a render error.</Text>
+            <Text style={styles.errorCopy}>
+              Reload the page once. If it still fails, this screen confirms the deployment is alive and
+              the crash is happening in client rendering rather than the site being missing.
+            </Text>
+            <Text style={styles.errorMessage}>{this.state.message ?? "Unknown render error"}</Text>
+          </View>
+        </SafeAreaView>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+function AppInner() {
   const { width } = useWindowDimensions();
   const [bootState] = useState(() => loadPrototypeState());
   const [signedIn, setSignedIn] = useState(bootState?.signedIn ?? false);
@@ -224,6 +264,14 @@ export default function App() {
   );
 }
 
+export default function App() {
+  return (
+    <AppErrorBoundary>
+      <AppInner />
+    </AppErrorBoundary>
+  );
+}
+
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
@@ -333,5 +381,37 @@ const styles = StyleSheet.create({
     color: theme.muted,
     fontSize: 15,
     lineHeight: 23,
+  },
+  errorShell: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 24,
+    backgroundColor: theme.bg,
+  },
+  errorEyebrow: {
+    color: theme.redClay,
+    fontSize: 12,
+    fontWeight: "800",
+    letterSpacing: 1.4,
+    textTransform: "uppercase",
+    marginBottom: 10,
+  },
+  errorTitle: {
+    color: theme.panel,
+    fontSize: 28,
+    lineHeight: 34,
+    fontWeight: "800",
+    marginBottom: 10,
+  },
+  errorCopy: {
+    color: "#efe6d9",
+    fontSize: 15,
+    lineHeight: 23,
+    marginBottom: 14,
+  },
+  errorMessage: {
+    color: "#ffe1cd",
+    fontSize: 14,
+    lineHeight: 21,
   },
 });

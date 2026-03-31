@@ -40,7 +40,7 @@ export function GameDetailScreen({
           uri={game.coverUri}
           title={game.title}
           colors={game.accent}
-          symbolUri={game.symbolUri}
+          symbolText={game.symbolText}
           width={148}
           height={202}
           radius={24}

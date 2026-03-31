@@ -59,7 +59,7 @@ export function FeedScreen({
                 uri={game.coverUri}
                 title={game.title}
                 colors={game.accent}
-                symbolUri={game.symbolUri}
+                symbolText={game.symbolText}
                 width={124}
                 height={164}
                 radius={22}
@@ -107,7 +107,7 @@ export function FeedScreen({
                 uri={gameSeed.find((game) => game.title === item.game)?.coverUri ?? gameSeed[0].coverUri}
                 title={item.game}
                 colors={gameSeed.find((game) => game.title === item.game)?.accent ?? gameSeed[0].accent}
-                symbolUri={gameSeed.find((game) => game.title === item.game)?.symbolUri}
+                symbolText={gameSeed.find((game) => game.title === item.game)?.symbolText}
                 width={78}
                 height={104}
                 radius={18}

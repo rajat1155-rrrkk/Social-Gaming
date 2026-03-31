@@ -7,7 +7,7 @@ export function CoverArt({
   uri,
   title,
   colors = [theme.brandDeep, theme.redClay] as [string, string],
-  symbolUri,
+  symbolText,
   width = 82,
   height = 110,
   radius = 18,
@@ -15,7 +15,7 @@ export function CoverArt({
   uri: string;
   title?: string;
   colors?: [string, string];
-  symbolUri?: string;
+  symbolText?: string;
   width?: number;
   height?: number;
   radius?: number;
@@ -37,7 +37,7 @@ export function CoverArt({
           style={[styles.generatedCard, { width, height, borderRadius: radius - 2 }]}
         >
           <View style={styles.generatedOrb} />
-          {symbolUri ? <Image source={{ uri: symbolUri }} style={styles.symbol} resizeMode="contain" /> : null}
+          {symbolText ? <Text style={styles.symbolText}>{symbolText}</Text> : null}
           <View style={styles.generatedFooter}>
             <Text numberOfLines={2} style={styles.generatedTitle}>
               {title}
@@ -82,11 +82,12 @@ const styles = StyleSheet.create({
     right: -8,
     backgroundColor: "rgba(255,255,255,0.18)",
   },
-  symbol: {
-    width: "58%",
-    height: "42%",
+  symbolText: {
     alignSelf: "center",
-    marginTop: 10,
+    marginTop: 8,
+    fontSize: 42,
+    color: "#fffaf2",
+    fontWeight: "800",
   },
   generatedFooter: {
     backgroundColor: "rgba(17,19,31,0.34)",

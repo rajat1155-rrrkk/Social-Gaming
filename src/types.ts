@@ -26,7 +26,7 @@ export type GameItem = {
   accent: [string, string];
   coverUri: string;
   blurb: string;
-  symbolUri?: string;
+  symbolText?: string;
 };
 
 export type UserItem = {

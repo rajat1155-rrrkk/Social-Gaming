@@ -53,7 +53,7 @@ export function SearchScreen({
             uri={game.coverUri}
             title={game.title}
             colors={game.accent}
-            symbolUri={game.symbolUri}
+            symbolText={game.symbolText}
             width={92}
             height={122}
             radius={20}
