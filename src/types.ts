@@ -23,6 +23,7 @@ export type GameItem = {
   accent: [string, string];
   coverUri: string;
   blurb: string;
+  symbolText?: string;
 };
 
 export type UserItem = {

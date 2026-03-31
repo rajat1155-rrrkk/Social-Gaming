@@ -31,9 +31,17 @@ export function FeedScreen({
 
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.momentsRow}>
         {gameSeed.slice(0, 6).map((game) => (
-          <View key={game.id} style={styles.momentCard}>
-            <View style={styles.momentRing}>
-              <CoverArt uri={game.coverUri} width={68} height={68} radius={34} />
+            <View key={game.id} style={styles.momentCard}>
+            <View style={[styles.momentRing, { borderColor: game.accent[1] }]}>
+              <CoverArt
+                uri={game.coverUri}
+                title={game.title}
+                colors={game.accent}
+                symbolText={game.symbolText}
+                width={68}
+                height={68}
+                radius={34}
+              />
             </View>
             <Text numberOfLines={1} style={styles.momentLabel}>
               {game.title.split(":")[0]}
@@ -47,7 +55,15 @@ export function FeedScreen({
           .filter((game) => featuredGameIds.includes(game.id))
           .map((game) => (
             <View key={game.id} style={styles.featuredCard}>
-              <CoverArt uri={game.coverUri} width={124} height={164} radius={22} />
+              <CoverArt
+                uri={game.coverUri}
+                title={game.title}
+                colors={game.accent}
+                symbolText={game.symbolText}
+                width={124}
+                height={164}
+                radius={22}
+              />
               <Text style={styles.featuredTitle}>{game.title}</Text>
               <Text style={styles.featuredMeta}>{game.genre}</Text>
             </View>
@@ -62,7 +78,15 @@ export function FeedScreen({
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.clipsRow}>
           {gameSeed.slice(2, 6).map((game) => (
             <View key={game.id} style={styles.clipTile}>
-              <CoverArt uri={game.coverUri} width={168} height={112} radius={18} />
+              <CoverArt
+                uri={game.coverUri}
+                title={game.title}
+                colors={game.accent}
+                symbolText={game.symbolText}
+                width={168}
+                height={112}
+                radius={18}
+              />
               <View style={styles.playBadge}>
                 <Ionicons name="play" size={14} color={theme.panel} />
                 <Text style={styles.playBadgeText}>0:18</Text>
@@ -81,6 +105,9 @@ export function FeedScreen({
             <View style={styles.feedCardTop}>
               <CoverArt
                 uri={gameSeed.find((game) => game.title === item.game)?.coverUri ?? gameSeed[0].coverUri}
+                title={item.game}
+                colors={gameSeed.find((game) => game.title === item.game)?.accent ?? gameSeed[0].accent}
+                symbolText={gameSeed.find((game) => game.title === item.game)?.symbolText ?? gameSeed[0].symbolText}
                 width={78}
                 height={104}
                 radius={18}
@@ -120,11 +147,11 @@ export function FeedScreen({
 
 const styles = StyleSheet.create({
   storyCard: {
-    backgroundColor: "#e0d6c8",
+    backgroundColor: "#efe0c9",
     borderRadius: 24,
     padding: 18,
     borderWidth: 1,
-    borderColor: "#cfbda7",
+    borderColor: "#f3b37d",
     gap: 8,
   },
   storyEyebrow: {
@@ -159,11 +186,10 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   momentRing: {
-    padding: 3,
+    padding: 4,
     borderRadius: 999,
-    backgroundColor: theme.panelAlt,
-    borderWidth: 1,
-    borderColor: "#b79f80",
+    backgroundColor: "#241f39",
+    borderWidth: 2,
   },
   momentLabel: {
     color: theme.panelMuted,

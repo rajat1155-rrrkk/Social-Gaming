@@ -79,7 +79,15 @@ export function ProfileScreen({
         <Text style={styles.blockLabel}>Recent favorites</Text>
         {favorites.map((game) => (
           <View key={game.id} style={styles.favoriteRow}>
-            <CoverArt uri={game.coverUri} width={62} height={84} radius={16} />
+            <CoverArt
+              uri={game.coverUri}
+              title={game.title}
+              colors={game.accent}
+              symbolText={game.symbolText}
+              width={62}
+              height={84}
+              radius={16}
+            />
             <View style={styles.favoriteTextWrap}>
               <Text style={styles.favoriteTitle}>{game.title}</Text>
               <Text style={styles.logMeta}>{game.genre}</Text>
@@ -93,6 +101,11 @@ export function ProfileScreen({
           <View key={entry.id} style={styles.favoriteRow}>
             <CoverArt
               uri={favorites.find((game) => game.title === entry.game)?.coverUri ?? favorites[0].coverUri}
+              title={entry.game}
+              colors={favorites.find((game) => game.title === entry.game)?.accent ?? favorites[0].accent}
+              symbolText={
+                favorites.find((game) => game.title === entry.game)?.symbolText ?? favorites[0].symbolText
+              }
               width={62}
               height={84}
               radius={16}
