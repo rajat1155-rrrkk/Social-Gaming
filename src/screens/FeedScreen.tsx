@@ -6,19 +6,53 @@ import { CoverArt } from "../components/CoverArt";
 import { RatingStars } from "../components/RatingStars";
 import { SectionTitle } from "../components/SectionTitle";
 import { featuredGameIds, gameSeed } from "../data/mockData";
-import { ActivityItem } from "../types";
+import { ActivityItem, Profile } from "../types";
 import { theme } from "../theme";
 
 export function FeedScreen({
   activity,
   followingCount,
+  profile,
 }: {
   activity: ActivityItem[];
   followingCount: number;
+  profile: Profile;
 }) {
   return (
     <>
-      <SectionTitle title="Friend Activity" subtitle="Recent logs from people you follow" />
+      <View style={styles.appHeader}>
+        <View style={styles.appHeaderMain}>
+          <View style={styles.appAvatar}>
+            <Text style={styles.appAvatarText}>
+              {profile.name
+                .split(" ")
+                .map((part) => part[0])
+                .join("")
+                .slice(0, 2)}
+            </Text>
+          </View>
+          <View style={styles.appHeaderText}>
+            <Text style={styles.appEyebrow}>logg</Text>
+            <Text style={styles.appTitle}>Hey {profile.name.split(" ")[0]}, here&apos;s your circle.</Text>
+          </View>
+        </View>
+        <View style={styles.appActions}>
+          <View style={styles.appIconBubble}>
+            <Ionicons name="sparkles-outline" size={16} color={theme.brandDeep} />
+          </View>
+          <View style={styles.appIconBubble}>
+            <Ionicons name="notifications-outline" size={16} color={theme.brandDeep} />
+          </View>
+        </View>
+      </View>
+
+      <View style={styles.feedIntroRow}>
+        <SectionTitle title="Friend Activity" subtitle="Recent logs from people you follow" />
+        <View style={styles.livePill}>
+          <View style={styles.liveDot} />
+          <Text style={styles.livePillText}>Live taste</Text>
+        </View>
+      </View>
 
       <View style={styles.storyCard}>
         <Text style={styles.storyEyebrow}>Today on logg</Text>
@@ -157,6 +191,94 @@ export function FeedScreen({
 }
 
 const styles = StyleSheet.create({
+  appHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: 12,
+    marginBottom: 2,
+  },
+  appHeaderMain: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    flex: 1,
+  },
+  appAvatar: {
+    width: 48,
+    height: 48,
+    borderRadius: 18,
+    backgroundColor: "#5f49ff",
+    borderWidth: 2,
+    borderColor: "#c8bdff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  appAvatarText: {
+    color: theme.panel,
+    fontWeight: "800",
+    fontSize: 15,
+  },
+  appHeaderText: {
+    flex: 1,
+    gap: 2,
+  },
+  appEyebrow: {
+    color: "#d6defa",
+    fontSize: 12,
+    fontWeight: "800",
+    textTransform: "uppercase",
+    letterSpacing: 1.4,
+  },
+  appTitle: {
+    color: theme.panel,
+    fontSize: 22,
+    lineHeight: 28,
+    fontWeight: "800",
+  },
+  appActions: {
+    flexDirection: "row",
+    gap: 8,
+  },
+  appIconBubble: {
+    width: 40,
+    height: 40,
+    borderRadius: 14,
+    backgroundColor: "rgba(255, 248, 238, 0.92)",
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "#ffd9af",
+  },
+  feedIntroRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    gap: 12,
+  },
+  livePill: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 7,
+    backgroundColor: "#fff0dc",
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: "#ffc78f",
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    marginTop: 4,
+  },
+  liveDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 999,
+    backgroundColor: "#32d3c7",
+  },
+  livePillText: {
+    color: theme.brandDeep,
+    fontSize: 12,
+    fontWeight: "800",
+  },
   storyCard: {
     backgroundColor: "#efe0c9",
     borderRadius: 24,

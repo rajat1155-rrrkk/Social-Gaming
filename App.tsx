@@ -172,7 +172,11 @@ export default function App() {
           <View style={styles.deviceFrame}>
             <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
               {activeTab === "feed" && (
-                <FeedScreen activity={activity} followingCount={followedHandles.length} />
+                <FeedScreen
+                  activity={activity}
+                  followingCount={followedHandles.length}
+                  profile={profile}
+                />
               )}
 
               {activeTab === "search" && (
