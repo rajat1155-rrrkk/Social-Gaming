@@ -1,5 +1,15 @@
 import { ActivityItem, GameItem, UserItem } from "../types";
 
+const commonsFile = (fileName: string) =>
+  `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(fileName)}`;
+
+const symbolSources = {
+  controller: commonsFile("Simple game pad.png"),
+  star: commonsFile("Star Icon CC0.png"),
+  heart: commonsFile("Heart pixelart (transparent background).png"),
+  rainbowHeart: commonsFile("Rainbow Heart 181x182.png"),
+};
+
 function createCoverArt(
   title: string,
   top: string,
@@ -125,6 +135,7 @@ export const gameSeed: GameItem[] = [
     accent: ["#102520", "#245c4b"],
     coverUri: createCoverArt("Expedition 33", "#0f1c1a", "#254d43", "#e7c57d", "PAINTED RPG"),
     blurb: "A lush prestige RPG with painterly spectacle and elegant turn-based combat.",
+    symbolUri: symbolSources.star,
   },
   {
     id: "g2",
@@ -136,6 +147,7 @@ export const gameSeed: GameItem[] = [
     accent: ["#281410", "#7f3b29"],
     coverUri: createCoverArt("Hades II", "#25120f", "#6b2e1f", "#f4c27f", "MYTHIC ROGUELIKE"),
     blurb: "Stylish, fast, and still one of the sharpest-feeling action loops around.",
+    symbolUri: symbolSources.controller,
   },
   {
     id: "g3",
@@ -147,6 +159,7 @@ export const gameSeed: GameItem[] = [
     accent: ["#161616", "#6d612c"],
     coverUri: createCoverArt("Elden Ring", "#141414", "#625724", "#d0c17d", "OPEN-WORLD EPIC"),
     blurb: "The modern benchmark for mythic scale, mystery, and hard-earned discovery.",
+    symbolUri: symbolSources.star,
   },
   {
     id: "g4",
@@ -158,6 +171,7 @@ export const gameSeed: GameItem[] = [
     accent: ["#18192e", "#4d64b1"],
     coverUri: createCoverArt("Animal Well", "#191a30", "#465aa3", "#c5d2ff", "PUZZLE MAZE"),
     blurb: "Dense, secretive, and designed like a puzzle box you carry around in your head.",
+    symbolUri: symbolSources.heart,
   },
   {
     id: "g5",
@@ -169,6 +183,7 @@ export const gameSeed: GameItem[] = [
     accent: ["#24191c", "#82484f"],
     coverUri: createCoverArt("Metaphor", "#21161a", "#7a434c", "#f3c98b", "FANTASY PRESTIGE"),
     blurb: "Big ideas, bolder UI, and exactly the kind of theatrical worldbuilding logg should spotlight.",
+    symbolUri: symbolSources.rainbowHeart,
   },
   {
     id: "g6",
@@ -180,6 +195,7 @@ export const gameSeed: GameItem[] = [
     accent: ["#151924", "#c08120"],
     coverUri: createCoverArt("Cyberpunk", "#11151f", "#8f6d1d", "#7bd4f6", "CITY ODYSSEY"),
     blurb: "A maximalist city fantasy with some of the strongest environmental mood in games.",
+    symbolUri: symbolSources.controller,
   },
   {
     id: "g7",
@@ -191,6 +207,7 @@ export const gameSeed: GameItem[] = [
     accent: ["#1c2028", "#55687f"],
     coverUri: createCoverArt("Death Stranding 2", "#191d24", "#546579", "#d7b7a0", "CINEMATIC JOURNEY"),
     blurb: "High-concept, atmospheric, and exactly the kind of conversation-starter a social log should amplify.",
+    symbolUri: symbolSources.heart,
   },
   {
     id: "g8",
@@ -202,6 +219,7 @@ export const gameSeed: GameItem[] = [
     accent: ["#1e1626", "#70354a"],
     coverUri: createCoverArt("Balatro", "#1b1422", "#6a3348", "#f0d38a", "COMPELLED LOOP"),
     blurb: "A tiny game with dangerous gravity. Perfect for quick logs and replay chatter.",
+    symbolUri: symbolSources.star,
   },
 ];
 

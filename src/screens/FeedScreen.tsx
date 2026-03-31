@@ -55,7 +55,15 @@ export function FeedScreen({
           .filter((game) => featuredGameIds.includes(game.id))
           .map((game) => (
             <View key={game.id} style={styles.featuredCard}>
-              <CoverArt uri={game.coverUri} width={124} height={164} radius={22} />
+              <CoverArt
+                uri={game.coverUri}
+                title={game.title}
+                colors={game.accent}
+                symbolUri={game.symbolUri}
+                width={124}
+                height={164}
+                radius={22}
+              />
               <View style={styles.genreChip}>
                 <Text style={styles.genreChipText}>{game.genre}</Text>
               </View>
@@ -97,6 +105,9 @@ export function FeedScreen({
             <View style={styles.feedCardTop}>
               <CoverArt
                 uri={gameSeed.find((game) => game.title === item.game)?.coverUri ?? gameSeed[0].coverUri}
+                title={item.game}
+                colors={gameSeed.find((game) => game.title === item.game)?.accent ?? gameSeed[0].accent}
+                symbolUri={gameSeed.find((game) => game.title === item.game)?.symbolUri}
                 width={78}
                 height={104}
                 radius={18}

@@ -49,7 +49,15 @@ export function SearchScreen({
       <Text style={styles.blockLabel}>Games</Text>
       {filteredGames.map((game) => (
         <View key={game.id} style={styles.gameCard}>
-          <CoverArt uri={game.coverUri} width={92} height={122} radius={20} />
+          <CoverArt
+            uri={game.coverUri}
+            title={game.title}
+            colors={game.accent}
+            symbolUri={game.symbolUri}
+            width={92}
+            height={122}
+            radius={20}
+          />
           <View style={styles.gameTextWrap}>
             <View style={styles.topMetaRow}>
               <View style={styles.genreBadge}>
