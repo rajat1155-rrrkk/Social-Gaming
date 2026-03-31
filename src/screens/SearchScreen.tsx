@@ -29,6 +29,13 @@ export function SearchScreen({
         title="Discover"
         subtitle="Search games and people with mocked IGDB-style data"
       />
+      <View style={styles.discoveryBanner}>
+        <Text style={styles.discoveryEyebrow}>Fresh finds</Text>
+        <Text style={styles.discoveryTitle}>Colorful picks, taste-forward people, instant logging.</Text>
+        <Text style={styles.discoveryCopy}>
+          Browse the kind of games and profiles that make the app feel social, curated, and alive.
+        </Text>
+      </View>
       <View style={styles.searchInputWrap}>
         <Ionicons name="search" size={18} color={theme.muted} />
         <TextInput
@@ -104,13 +111,39 @@ const styles = StyleSheet.create({
   searchInputWrap: {
     minHeight: 56,
     borderRadius: 18,
-    backgroundColor: "#fff8ef",
+    backgroundColor: "#fffdf7",
     borderWidth: 1,
     borderColor: theme.stroke,
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 14,
     gap: 10,
+  },
+  discoveryBanner: {
+    backgroundColor: "#fff1de",
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: "#ffc78f",
+    padding: 18,
+    gap: 8,
+  },
+  discoveryEyebrow: {
+    color: theme.brandDeep,
+    fontSize: 12,
+    fontWeight: "800",
+    letterSpacing: 1.3,
+    textTransform: "uppercase",
+  },
+  discoveryTitle: {
+    color: theme.ink,
+    fontSize: 22,
+    lineHeight: 28,
+    fontWeight: "800",
+  },
+  discoveryCopy: {
+    color: theme.muted,
+    fontSize: 14,
+    lineHeight: 21,
   },
   searchInput: {
     flex: 1,
@@ -130,7 +163,7 @@ const styles = StyleSheet.create({
     borderRadius: 26,
     padding: 14,
     marginBottom: 12,
-    backgroundColor: "#fff7ec",
+    backgroundColor: "#fffaf3",
     borderWidth: 1,
     borderColor: theme.stroke,
     flexDirection: "row",
@@ -148,8 +181,9 @@ const styles = StyleSheet.create({
     fontWeight: "800",
   },
   gameMeta: {
-    color: theme.muted,
+    color: theme.brandDeep,
     fontSize: 13,
+    fontWeight: "700",
   },
   gameBlurb: {
     color: theme.muted,
@@ -173,7 +207,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   userCard: {
-    backgroundColor: "#fff7ec",
+    backgroundColor: "#fffaf3",
     borderRadius: 22,
     borderWidth: 1,
     borderColor: theme.stroke,
@@ -187,9 +221,11 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: 16,
-    backgroundColor: theme.sky,
+    backgroundColor: "#dff0ff",
     alignItems: "center",
     justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "#9fd0ff",
   },
   avatarText: {
     color: "#10213d",
@@ -210,10 +246,12 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
   followButton: {
-    backgroundColor: theme.accentSoft,
+    backgroundColor: "#e8fff7",
     borderRadius: 999,
     paddingHorizontal: 12,
     paddingVertical: 10,
+    borderWidth: 1,
+    borderColor: "#97eadf",
   },
   followButtonText: {
     color: "#0f6e68",

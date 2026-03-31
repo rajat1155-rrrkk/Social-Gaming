@@ -88,7 +88,7 @@ export function LogScreen({
 
 const styles = StyleSheet.create({
   composerCard: {
-    backgroundColor: theme.panel,
+    backgroundColor: "#fff8f0",
     borderRadius: 26,
     borderWidth: 1,
     borderColor: theme.stroke,
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
   },
   selector: {
-    backgroundColor: theme.bg,
+    backgroundColor: "#fff2e4",
     borderRadius: 20,
     borderWidth: 1,
     borderColor: theme.stroke,
@@ -118,15 +118,16 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   selectorMeta: {
-    color: theme.muted,
+    color: theme.brandDeep,
     fontSize: 13,
+    fontWeight: "700",
   },
   mockPanel: {
     marginTop: 18,
-    backgroundColor: theme.accentSoft,
+    backgroundColor: "#e7fff8",
     borderRadius: 22,
     borderWidth: 1,
-    borderColor: "#c7ddd4",
+    borderColor: "#99ebdf",
     padding: 16,
     gap: 8,
   },
@@ -144,7 +145,9 @@ const styles = StyleSheet.create({
     marginTop: 18,
     padding: 16,
     borderRadius: 22,
-    backgroundColor: theme.panelAlt,
+    backgroundColor: "#fff0df",
+    borderWidth: 1,
+    borderColor: "#ffd1a2",
     gap: 8,
     marginBottom: 18,
   },
@@ -175,7 +178,7 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     borderWidth: 1,
     borderColor: theme.stroke,
-    backgroundColor: theme.panelAlt,
+    backgroundColor: "#fff1df",
     paddingHorizontal: 12,
     paddingVertical: 9,
   },
@@ -192,7 +195,7 @@ const styles = StyleSheet.create({
     color: theme.panel,
   },
   primaryButton: {
-    backgroundColor: theme.ink,
+    backgroundColor: "#5f49ff",
     minHeight: 54,
     borderRadius: 18,
     alignItems: "center",

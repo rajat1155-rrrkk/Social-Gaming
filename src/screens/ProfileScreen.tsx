@@ -129,7 +129,7 @@ export function ProfileScreen({
 
 const styles = StyleSheet.create({
   profileCard: {
-    backgroundColor: "#fff5e7",
+    backgroundColor: "#fff8f0",
     borderRadius: 26,
     borderWidth: 1,
     borderColor: theme.stroke,
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 20,
-    backgroundColor: theme.brandDeep,
+    backgroundColor: "#5f49ff",
     borderWidth: 3,
     borderColor: theme.gold,
     alignItems: "center",
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   profileMeta: {
-    color: theme.muted,
+    color: theme.brandDeep,
     fontSize: 14,
     lineHeight: 20,
   },
@@ -195,10 +195,12 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   profileHighlight: {
-    backgroundColor: "#fff0de",
+    backgroundColor: "#fff3e4",
     borderRadius: 20,
     padding: 16,
     gap: 8,
+    borderWidth: 1,
+    borderColor: "#ffd2a7",
   },
   highlightEyebrow: {
     color: theme.brandDeep,
@@ -219,9 +221,10 @@ const styles = StyleSheet.create({
   },
   statCard: {
     flex: 1,
-    backgroundColor: "#2a1d4b",
+    backgroundColor: "#5a45f7",
     borderRadius: 20,
-    borderWidth: 0,
+    borderWidth: 1,
+    borderColor: "#8c7bff",
     padding: 16,
     alignItems: "center",
     gap: 6,
@@ -247,7 +250,7 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
   },
   favoriteRow: {
-    backgroundColor: "#fffaf3",
+    backgroundColor: "#fffdf8",
     borderRadius: 18,
     borderWidth: 1,
     borderColor: theme.stroke,
@@ -279,7 +282,7 @@ const styles = StyleSheet.create({
     borderColor: theme.stroke,
     paddingVertical: 14,
     alignItems: "center",
-    backgroundColor: "#fff0de",
+    backgroundColor: "#fff4e6",
   },
   signOutText: {
     color: theme.brandDeep,
