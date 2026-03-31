@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 import { CoverArt } from "../components/CoverArt";
@@ -40,14 +41,24 @@ export function SearchScreen({
         />
       </View>
 
+      <LinearGradient colors={["#d7fff9", "#ffe0c2", "#ead9ff"]} style={styles.spotlightCard}>
+        <Text style={styles.spotlightEyebrow}>Discovery Mix</Text>
+        <Text style={styles.spotlightTitle}>Fast loops, lush worlds, and chaotic little masterpieces.</Text>
+      </LinearGradient>
+
       <Text style={styles.blockLabel}>Games</Text>
       {filteredGames.map((game) => (
         <View key={game.id} style={styles.gameCard}>
           <CoverArt uri={game.coverUri} width={92} height={122} radius={20} />
           <View style={styles.gameTextWrap}>
+            <View style={styles.topMetaRow}>
+              <View style={styles.genreBadge}>
+                <Text style={styles.genreBadgeText}>{game.genre}</Text>
+              </View>
+            </View>
             <Text style={styles.gameTitle}>{game.title}</Text>
             <Text style={styles.gameMeta}>
-              {game.genre} • {game.year} • {game.platform}
+              {game.year} • {game.platform}
             </Text>
             <Text style={styles.gameBlurb}>{game.blurb}</Text>
             <Text style={styles.gameFriends}>{game.friendsLogged} friends logged this</Text>
@@ -109,6 +120,26 @@ const styles = StyleSheet.create({
     color: theme.ink,
     fontSize: 15,
   },
+  spotlightCard: {
+    borderRadius: 22,
+    padding: 16,
+    gap: 6,
+    borderWidth: 1,
+    borderColor: "#ffd3aa",
+  },
+  spotlightEyebrow: {
+    color: "#8a3ffc",
+    fontSize: 12,
+    fontWeight: "800",
+    letterSpacing: 1.2,
+    textTransform: "uppercase",
+  },
+  spotlightTitle: {
+    color: theme.ink,
+    fontSize: 20,
+    lineHeight: 27,
+    fontWeight: "800",
+  },
   blockLabel: {
     marginTop: 6,
     marginBottom: 10,
@@ -132,6 +163,22 @@ const styles = StyleSheet.create({
   gameTextWrap: {
     flex: 1,
     gap: 8,
+  },
+  topMetaRow: {
+    flexDirection: "row",
+  },
+  genreBadge: {
+    backgroundColor: "#ead9ff",
+    borderRadius: 999,
+    paddingHorizontal: 9,
+    paddingVertical: 5,
+  },
+  genreBadgeText: {
+    color: "#5f34be",
+    fontSize: 10,
+    fontWeight: "800",
+    textTransform: "uppercase",
+    letterSpacing: 1,
   },
   gameTitle: {
     color: theme.ink,

@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { AnimatedEntrance } from "../components/AnimatedEntrance";
@@ -20,19 +21,26 @@ export function FeedScreen({
     <>
       <SectionTitle title="Friend Activity" subtitle="Recent logs from people you follow" />
 
-      <View style={styles.storyCard}>
+      <LinearGradient colors={["#ffe2c2", "#ffd5ed", "#d8fff8"]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.storyCard}>
         <Text style={styles.storyEyebrow}>Today on logg</Text>
         <Text style={styles.storyTitle}>Your circle is leaning narrative-heavy this week.</Text>
         <Text style={styles.storyCopy}>
           Following {followingCount} players. New posts appear here immediately when you publish a
           log in this browser prototype.
         </Text>
-      </View>
+      </LinearGradient>
 
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.momentsRow}>
         {gameSeed.slice(0, 6).map((game) => (
           <View key={game.id} style={styles.momentCard}>
-            <View style={styles.momentRing}>
+            <View
+              style={[
+                styles.momentRing,
+                index % 3 === 0 && styles.momentRingOrange,
+                index % 3 === 1 && styles.momentRingMint,
+                index % 3 === 2 && styles.momentRingPurple,
+              ]}
+            >
               <CoverArt uri={game.coverUri} width={68} height={68} radius={34} />
             </View>
             <Text numberOfLines={1} style={styles.momentLabel}>
@@ -48,13 +56,16 @@ export function FeedScreen({
           .map((game) => (
             <View key={game.id} style={styles.featuredCard}>
               <CoverArt uri={game.coverUri} width={124} height={164} radius={22} />
+              <View style={styles.genreChip}>
+                <Text style={styles.genreChipText}>{game.genre}</Text>
+              </View>
               <Text style={styles.featuredTitle}>{game.title}</Text>
-              <Text style={styles.featuredMeta}>{game.genre}</Text>
+              <Text style={styles.featuredMeta}>{game.blurb}</Text>
             </View>
           ))}
       </ScrollView>
 
-      <View style={styles.clipsCard}>
+      <LinearGradient colors={["#8a3ffc", "#ff5d73", "#ff8c42"]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.clipsCard}>
         <View style={styles.clipsHeader}>
           <Text style={styles.clipsTitle}>Quick Clips</Text>
           <Text style={styles.clipsMeta}>Motion-inspired previews without autoplay audio</Text>
@@ -73,7 +84,7 @@ export function FeedScreen({
             </View>
           ))}
         </ScrollView>
-      </View>
+      </LinearGradient>
 
       {activity.map((item, index) => (
         <AnimatedEntrance key={item.id} delay={120 + index * 70}>
@@ -139,11 +150,8 @@ export function FeedScreen({
 
 const styles = StyleSheet.create({
   storyCard: {
-    backgroundColor: "#e0d6c8",
     borderRadius: 24,
     padding: 18,
-    borderWidth: 1,
-    borderColor: "#cfbda7",
     gap: 8,
   },
   storyEyebrow: {
@@ -160,7 +168,7 @@ const styles = StyleSheet.create({
     fontWeight: "800",
   },
   storyCopy: {
-    color: theme.muted,
+    color: "#6b5148",
     fontSize: 14,
     lineHeight: 21,
   },
@@ -184,31 +192,60 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#b79f80",
   },
+  momentRingOrange: {
+    backgroundColor: "#ffd6b8",
+    borderColor: "#ff8c42",
+  },
+  momentRingMint: {
+    backgroundColor: "#d7fff9",
+    borderColor: "#32d3c7",
+  },
+  momentRingPurple: {
+    backgroundColor: "#ead9ff",
+    borderColor: "#8a3ffc",
+  },
   momentLabel: {
-    color: theme.panelMuted,
+    color: "#fff1dc",
     fontSize: 11,
     maxWidth: 76,
   },
   featuredCard: {
     width: 132,
     gap: 10,
+    backgroundColor: "#241f38",
+    borderRadius: 22,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "#53477d",
+  },
+  genreChip: {
+    alignSelf: "flex-start",
+    backgroundColor: "#ffe14d",
+    borderRadius: 999,
+    paddingHorizontal: 8,
+    paddingVertical: 5,
+  },
+  genreChipText: {
+    color: "#4d3500",
+    fontSize: 10,
+    fontWeight: "800",
+    textTransform: "uppercase",
+    letterSpacing: 1,
   },
   featuredTitle: {
-    color: theme.panel,
+    color: "#fff6de",
     fontSize: 14,
     fontWeight: "700",
   },
   featuredMeta: {
-    color: "#c7b8a2",
+    color: "#dacaff",
     fontSize: 12,
+    lineHeight: 18,
   },
   clipsCard: {
-    backgroundColor: "#1d2029",
     borderRadius: 24,
     padding: 16,
     gap: 14,
-    borderWidth: 1,
-    borderColor: "#343849",
   },
   clipsHeader: {
     gap: 4,
@@ -219,7 +256,7 @@ const styles = StyleSheet.create({
     fontWeight: "800",
   },
   clipsMeta: {
-    color: "#a4aab8",
+    color: "rgba(255,240,230,0.86)",
     fontSize: 13,
   },
   clipsRow: {
@@ -248,29 +285,33 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   clipTitle: {
-    color: theme.panel,
+    color: "#fff9ef",
     fontSize: 13,
     fontWeight: "700",
   },
   feedCard: {
-    backgroundColor: theme.panel,
+    backgroundColor: "#fff7ec",
     borderRadius: 24,
     borderColor: theme.stroke,
     borderWidth: 1,
     padding: 16,
     gap: 14,
+    shadowColor: theme.redClay,
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 8 },
   },
   feedStickerRow: {
     flexDirection: "row",
   },
   feedSticker: {
-    backgroundColor: "#ead9ff",
+    backgroundColor: "#c9fff8",
     borderRadius: 999,
     paddingHorizontal: 10,
     paddingVertical: 6,
   },
   feedStickerText: {
-    color: "#5a32b0",
+    color: "#046e66",
     fontSize: 11,
     fontWeight: "800",
     textTransform: "uppercase",
@@ -337,7 +378,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 6,
-    backgroundColor: "#fff0de",
+    backgroundColor: "#ffe8d0",
     borderRadius: 999,
     paddingHorizontal: 10,
     paddingVertical: 7,
