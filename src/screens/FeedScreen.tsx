@@ -135,6 +135,17 @@ export function FeedScreen({
                 <View style={styles.feedFooter}>
                   <RatingStars rating={item.rating} />
                   <Text style={styles.feedNote}>{item.note}</Text>
+                  <View style={styles.socialRow}>
+                    <View style={[styles.socialPill, styles.socialPillWarm]}>
+                      <Text style={styles.socialPillText}>{18 + index * 3} cheers</Text>
+                    </View>
+                    <View style={[styles.socialPill, styles.socialPillMint]}>
+                      <Text style={styles.socialPillText}>{4 + index} replies</Text>
+                    </View>
+                    <View style={[styles.socialPill, styles.socialPillPurple]}>
+                      <Text style={styles.socialPillText}>Save</Text>
+                    </View>
+                  </View>
                 </View>
               </View>
             </View>
@@ -317,6 +328,31 @@ const styles = StyleSheet.create({
   },
   feedFooter: {
     gap: 8,
+  },
+  socialRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+    marginTop: 2,
+  },
+  socialPill: {
+    paddingHorizontal: 10,
+    paddingVertical: 7,
+    borderRadius: 999,
+  },
+  socialPillWarm: {
+    backgroundColor: "#ffe7d1",
+  },
+  socialPillMint: {
+    backgroundColor: "#dffbf3",
+  },
+  socialPillPurple: {
+    backgroundColor: "#ece2ff",
+  },
+  socialPillText: {
+    color: theme.ink,
+    fontSize: 12,
+    fontWeight: "700",
   },
   feedNote: {
     color: theme.ink,

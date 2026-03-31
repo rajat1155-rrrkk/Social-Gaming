@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View, useWindowDimensions } from "react-native";
 
-import { theme } from "../theme";
+import { layout, theme } from "../theme";
 import { TabKey } from "../types";
 
 const tabs: Array<{ key: TabKey; icon: keyof typeof Ionicons.glyphMap; label: string }> = [
@@ -18,8 +18,12 @@ export function BottomTabBar({
   activeTab: TabKey;
   onChange: (tab: TabKey) => void;
 }) {
+  const { width } = useWindowDimensions();
+  const tabBarWidth = Math.min(Math.max(width - 28, 0), layout.maxContentWidth + 24);
+  const tabBarLeft = Math.max((width - tabBarWidth) / 2, 14);
+
   return (
-    <View style={styles.tabBar}>
+    <View style={[styles.tabBar, { width: tabBarWidth, left: tabBarLeft }]}>
       {tabs.map((tab) => (
         <Pressable
           key={tab.key}
@@ -43,8 +47,6 @@ export function BottomTabBar({
 const styles = StyleSheet.create({
   tabBar: {
     position: "absolute",
-    left: 16,
-    right: 16,
     bottom: 16,
     backgroundColor: "rgba(255,248,238,0.97)",
     borderRadius: 28,
@@ -52,7 +54,8 @@ const styles = StyleSheet.create({
     borderColor: theme.stroke,
     flexDirection: "row",
     justifyContent: "space-around",
-    paddingVertical: 12,
+    paddingVertical: 10,
+    paddingHorizontal: 8,
     shadowColor: theme.brandDeep,
     shadowOpacity: 0.18,
     shadowRadius: 18,
@@ -62,9 +65,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 6,
     minWidth: 58,
-    paddingHorizontal: 14,
+    paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 18,
+    flex: 1,
   },
   tabItemActive: {
     backgroundColor: "#ffe7cf",
